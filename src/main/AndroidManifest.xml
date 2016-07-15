@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.btpltech.bankingbot">
+
+    <!-- android:name=".Activity.ChatApplication" -->
+    <application
+        android:name=".util.AppController"
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- android:parentActivityName=".ChatListActivity" -->
+        <activity
+            android:name=".Activity.HomeActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".Activity.ChatActivity"
+            android:label="@string/title_activity_chat" />
+        <activity
+            android:name=".Activity.ChatListActivity"
+            android:label="@string/title_activity_chat_list">
+
+            <!-- <meta-data -->
+            <!-- android:name="android.support.PARENT_ACTIVITY" -->
+            <!-- android:value="com.btpltech.bankingbot.Activity.MainActivity" /> -->
+        </activity>
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:label="Banking Bot"
+            android:theme="@style/AppTheme.Dark"></activity>
+        <activity
+            android:name=".Activity.RegisterActivity"
+            android:label="Register"
+            android:theme="@style/AppTheme.Dark" />
+
+        <!-- <activity -->
+        <!-- android:name=".ConversationHistory" -->
+        <!-- android:theme="@style/AppTheme" -->
+        <!-- android:label="History" > -->
+        <!-- </activity> -->
+        >
+        <!-- <meta-data -->
+        <!-- android:name="android.support.PARENT_ACTIVITY" -->
+        <!-- android:value="com.btpltech.bankingbot.Activity.MainActivity" /> -->
+        <activity android:name=".Activity.ActivityDetail" />
+        <!-- <activity -->
+        <!-- android:name=".MainActivity" -->
+        <!-- android:label="Home" > -->
+        <!-- </activity> -->
+        <activity
+            android:name=".Activity.TabActivity"
+            android:label="@string/title_activity_tab" />
+        <activity
+            android:name=".Activity.ListChatDetails"
+            android:label="Details" />
+        <activity android:name=".Activity.AddMoneyActivity" />
+        <activity android:name=".Activity.PaymentActivity" />
+        <activity android:name=".Activity.BankStatementActivity" />
+        <activity android:name=".Activity.AccountBalanceActivity" />
+        <activity
+            android:name=".Activity.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/FullscreenTheme"></activity>
+    </application>
+
+</manifest>

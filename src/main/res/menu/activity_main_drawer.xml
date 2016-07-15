@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:visible="false"
+            android:id="@+id/acc_balance"
+            android:icon="@drawable/account_balance"
+            android:title="Account Balance" />
+        <item
+            android:id="@+id/accountManagement"
+            android:icon="@drawable/account_balance"
+            android:title="My Account" />
+
+        <item
+            android:id="@+id/transferMoney"
+            android:icon="@drawable/add_money"
+            android:title="Recharge and Payment" />
+
+        <item
+            android:id="@+id/search_card"
+            android:icon="@drawable/search"
+            android:title="Search Card" />
+        <item
+            android:id="@+id/addMoney"
+            android:icon="@drawable/add_money"
+            android:title="Add Money" />
+        <item
+            android:id="@+id/recharge"
+            android:icon="@drawable/recharge"
+            android:title="Recharge Mobile" />
+        <item
+            android:id="@+id/viewstatement"
+            android:icon="@drawable/banktr"
+            android:title="View last transactions" />
+        <item
+            android:id="@+id/findcards"
+            android:icon="@drawable/search"
+            android:title="Find Top Credit Card" />
+    </group>
+
+    <item  android:title="Communicate" android:visible="false">
+        <menu>
+            
+        </menu>
+    </item>
+
+</menu>

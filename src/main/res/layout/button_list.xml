@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        >
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="160dp"
+
+        android:layout_height="wrap_content"
+        android:text="yes"
+        android:paddingTop="@dimen/pad_10dp"
+        android:paddingBottom="@dimen/pad_10dp"
+        android:paddingLeft="@dimen/pad_15dp"
+        android:paddingRight="@dimen/pad_15dp"
+        android:id="@+id/button"
+        android:textSize="@dimen/pad_10dp"
+        android:background="@drawable/round_corners_right"
+        android:layout_alignParentLeft="true" />
+    </RelativeLayout>
+</LinearLayout>
