@@ -1,0 +1,494 @@
+[
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\card_list_widget.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\card_list_widget.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_details.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_details.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_account_balance.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_account_balance.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_bank_statement.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_bank_statement.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\card_confirmation.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\card_confirmation.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\mobile_bill_payment.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\mobile_bill_payment.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_cancel_action.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\transaction_history.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\transaction_history.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_navigation_menu_item.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_navigation_menu_item.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\account_management.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\account_management.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\bank_statement_list.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\bank_statement_list.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_media.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_tab.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_tab.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\menu_top.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\menu_top.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_navigation_item_subheader.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_navigation_item_subheader.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\drawer_header.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\drawer_header.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_navigation_item_separator.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_navigation_item_separator.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\toolbar.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\toolbar.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\listchat_titles.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\listchat_titles.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_home.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_home.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_up_container.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_multichoice_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_layout_tab_text.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_layout_tab_text.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_chat.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_chat.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_select_dialog_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\bank_statement.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\bank_statement.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_title_item.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_bot_list.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_bot_list.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_chat_list.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_chat_list.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_chronometer.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_login_new.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_login_new.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\caraousal_card.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\caraousal_card.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_search_view.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\weget_list_item.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\weget_list_item.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_splash.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_splash.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\doing_payment_widget.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\doing_payment_widget.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\chat_message_suggestion.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\chat_message_suggestion.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\start.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\start.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_content_include.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_screen_content_include.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\rewards_type.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\rewards_type.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_activity_detail.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_activity_detail.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\content_chat.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\content_chat.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\credit_card_list.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\credit_card_list.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_popup_menu_item_layout.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_conversation_history.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_conversation_history.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_lines.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_template_lines.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\chat_message_right.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\chat_message_right.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_listchatdetails.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_listchatdetails.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\bot_list.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\bot_list.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\drawer_item.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\drawer_item.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_alert_dialog_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_menu_layout.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_layout_tab_icon.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_layout_tab_icon.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_list_chat_details.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_list_chat_details.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_navigation_menu.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_navigation_menu.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\clear.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\clear.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_main.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\account_balance_widget.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\account_balance_widget.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\transaction_hystory.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\transaction_hystory.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\search_bank.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\search_bank.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_radio.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\content_chat_list.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\content_chat_list.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\confirm_payment.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\confirm_payment.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\chat_message.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\chat_message.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_alert_dialog_button_bar_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_item_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_bottom_sheet_dialog.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_bottom_sheet_dialog.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\testimonial_cardview.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\testimonial_cardview.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\mobile_elect_bill_payment.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\mobile_elect_bill_payment.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_layout_snackbar_include.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_layout_snackbar_include.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\bot_category_list.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\bot_category_list.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\content_main.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\content_main.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_view_list_nav_layout.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\button_template.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\button_template.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_navigation_item_header.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_navigation_item_header.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_menu_item_action_area.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_menu_item_action_area.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_main2.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_main2.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_toolbar.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\button_list.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\button_list.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\change_widget.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\change_widget.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\card_item_list.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\card_item_list.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_layout_snackbar.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_layout_snackbar.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\nav_header_main.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\nav_header_main.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_layout.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_dialog_title_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\design_navigation_item.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\layout\\design_navigation_item.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_media_action.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\template.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\template.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_big_media_narrow.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\about_cardview.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\about_cardview.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\app_bar_main.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\app_bar_main.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_part_time.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\list_options.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\list_options.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_list_menu_item_icon.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_list_chat.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_list_chat.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_register.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_register.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\image_list.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\image_list.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_expanded_menu_layout.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\nav_header_main2.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\nav_header_main2.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_add_money.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_add_money.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_mode_bar.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_login.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_simple.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_screen_simple.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\electricity_bill_payment.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\electricity_bill_payment.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\chat_message_left.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\chat_message_left.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\carausal_item.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\carausal_item.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\slide_up.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\slide_up.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\add_money.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\add_money.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_menu_item_layout.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_chat_emoji.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_chat_emoji.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\app_bar_main2.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\app_bar_main2.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\content_main2.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\content_main2.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\card_discription.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\card_discription.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\layout\\activity_payment.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\layout\\activity_payment.xml"
+    }
+]

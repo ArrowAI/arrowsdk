@@ -99,6 +99,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     ListView listViewChat;
     EditText inputText;
     String botName;
+    String title;
     String openType;
     String text;
     String endExistingFlow;
@@ -134,7 +135,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         CookieHandler.setDefault(new CookieManager());
         setContentView(R.layout.activity_chat);
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setOnClickListener(
@@ -185,7 +186,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
         Random r = new Random();
         Intent intent = getIntent();
-        botName = intent.getStringExtra("botName");
+        botName = "Bhaiya Ji";
 
         getSupportActionBar().setTitle("Bhaiya Ji");
         //bindList();
@@ -448,13 +449,13 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     try {
                         JSONObject jsonObject = (JSONObject) sideMenu.get(i);
                         botId = jsonObject.getString("bot_id");
-                        botName = jsonObject.getString("title");
+                        title = jsonObject.getString("title");
                         if (jsonObject.has("text")) {
                             text = jsonObject.getString("text");
                         }
                         openType = jsonObject.getString("open_type");
                         endExistingFlow = jsonObject.getString("endExistingFlow");
-                        sideMenuItem = new NavItem(botName, openType, botId, text, endExistingFlow);
+                        sideMenuItem = new NavItem(title, openType, botId, text, endExistingFlow);
                         menuItem.add(sideMenuItem);
                     } catch (Exception e) {
                     }
@@ -471,7 +472,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mDrawerLayout.closeDrawer(mDrawerList);
                 String bot_id = menuItem.get(position).getBot_id();
-                botName = menuItem.get(position).getTitle();
+                title = menuItem.get(position).getTitle();
                 text = menuItem.get(position).getText();
                 openType = menuItem.get(position).getOpen_type();
                 endExistingFlow = menuItem.get(position).getEndExistingFlow();
@@ -556,13 +557,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void saveSharedPref(String name, String key) {
-        SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("username", name);
-        editor.putString("userId", key);
-        editor.commit();
-    }
+
 
     private void bindList() {
 //    chatList.clear();
@@ -633,8 +628,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 JSONObject jsonObject = (JSONObject) bots.get(i);
                 botId = jsonObject.getString("bot_id");
                 //botImage = jsonObject.getString("image");
-                botName = jsonObject.getString("bot_text");
-                menu = new TopMenu(botId, botImage, botName);
+                title = jsonObject.getString("bot_text");
+                menu = new TopMenu(botId, botImage, title);
                 menuArrayList.add(menu);
             } catch (Exception e) {
             }
@@ -746,43 +741,5 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         return totalHeight;
 
     }
-    public void getUserId() {
-        String android_id = Settings.Secure.getString(ChatActivity.this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-        TelephonyManager telephonyManager = (TelephonyManager) ChatActivity.this.getSystemService(android.content.Context.TELEPHONY_SERVICE);
-        WifiManager wm = (WifiManager) ChatActivity.this.getSystemService(android.content.Context.WIFI_SERVICE);
-        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-        String deviceinfo = "IMEI : " + ""//telephonyManager.getDeviceId()
-                + " \nIP : " + ip
-                + " \nANDROID_ID : " + android_id
-                + " \nVERSION.RELEASE : " + Build.VERSION.RELEASE
-                + " \nVERSION.INCREMENTAL : " + Build.VERSION.INCREMENTAL
-                + " \nVERSION.SDK.NUMBER : " + Build.VERSION.SDK_INT
-                + " \nBOARD : " + Build.BOARD
-                + " \nBOOTLOADER : " + Build.BOOTLOADER
-                + " \nBRAND : " + Build.BRAND
-                + " \nCPU_ABI : " + Build.CPU_ABI
-                + " \nCPU_ABI2 : " + Build.CPU_ABI2
-                + " \nDISPLAY : " + Build.DISPLAY
-                + " \nFINGERPRINT : " + Build.FINGERPRINT
-                + " \nHARDWARE : " + Build.HARDWARE
-                + " \nHOST : " + Build.HOST
-                + " \nID : " + Build.ID
-                + " \nMANUFACTURER : " + Build.MANUFACTURER
-                + " \nMODEL : " + Build.MODEL
-                + " \nPRODUCT : " + Build.PRODUCT
-                + " \nSERIAL : " + Build.SERIAL
-                + " \nTAGS : " + Build.TAGS
-                + " \nTIME : " + Build.TIME
-                + " \nTYPE : " + Build.TYPE
-                + " \nUNKNOWN : " + Build.UNKNOWN
-                + " \nUSER : " + Build.USER;
-        myRef = database.getReference("appUser/guest");
-        myRef.push().setValue(deviceinfo);
-        String key = myRef.getKey();
-        saveSharedPref(key, key);
-
-    }
-
 
 }

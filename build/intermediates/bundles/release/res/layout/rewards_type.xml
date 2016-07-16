@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp"
+    >
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_corners_right"
+        android:padding="16dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textHeading"
+            android:text="What Sort of rewards type you expect??"
+            android:layout_alignParentTop="true"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="15dp"
+            />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Airline"
+            android:id="@+id/Airline"
+            android:background="#82c34a"
+            android:textColor="#fff"
+            android:layout_marginLeft="30dp"
+            android:layout_below="@+id/textHeading"
+            android:layout_alignParentLeft="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Lifestyle"
+            android:background="#82c34a"
+            android:layout_marginRight="50dp"
+
+            android:textColor="#fff"
+            android:layout_alignParentRight="true"
+            android:id="@+id/Lifestyle"
+            android:layout_below="@+id/textHeading"
+            />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Fuel"
+            android:layout_marginTop="@dimen/pad_10dp"
+            android:id="@+id/Fuel"
+            android:background="#82c34a"
+            android:textColor="#fff"
+            android:layout_marginLeft="30dp"
+            android:layout_below="@+id/Airline"
+            android:layout_alignParentLeft="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Shopping"
+            android:background="#82c34a"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="@dimen/pad_10dp"
+            android:textColor="#fff"
+            android:layout_alignParentRight="true"
+            android:id="@+id/Shopping"
+            android:layout_below="@+id/Lifestyle"
+            />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Cashback"
+            android:layout_marginTop="@dimen/pad_10dp"
+            android:id="@+id/Cashback"
+            android:background="#82c34a"
+            android:textColor="#fff"
+            android:layout_marginLeft="30dp"
+            android:layout_below="@+id/Fuel"
+            android:layout_alignParentLeft="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Premium"
+            android:background="#82c34a"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="@dimen/pad_10dp"
+            android:textColor="#fff"
+            android:layout_alignParentRight="true"
+            android:id="@+id/Premium"
+            android:layout_below="@+id/Shopping"
+            />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Low Fee"
+            android:background="#82c34a"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="@dimen/pad_10dp"
+            android:textColor="#fff"
+
+            android:id="@+id/lowFee"
+            android:layout_below="@+id/Premium"
+            />
+
+        Low Fee
+
+    </RelativeLayout>
+
+
+</LinearLayout>

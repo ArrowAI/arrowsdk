@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\menu_register.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\menu_register.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\menu_login.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\menu_login.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\main.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\main.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\menu_home.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\menu_home.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\menu_list_chat.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\menu_list_chat.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\menu_tab.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\menu_tab.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\menu_list_chat_details.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\menu_list_chat_details.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\menu_chat.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\menu_chat.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\activity_main_drawer.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\activity_main_drawer.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\main2.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\main2.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\drawer.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\drawer.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\menu\\activity_main2_drawer.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\menu\\activity_main2_drawer.xml"
+    }
+]

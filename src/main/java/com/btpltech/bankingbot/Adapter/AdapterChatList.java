@@ -74,7 +74,10 @@ public class AdapterChatList extends BaseAdapter {
     public View getView(final int position, View convertView, final ViewGroup parent) {
         listViewHolder = new ViewHolder();
         boolean bindDefaultEvents = true;
-        String from = listStorage.get(position).getFrom().toLowerCase();
+        String from="";
+        if (listStorage.get(position).getFrom().toLowerCase()!=null) {
+            from= listStorage.get(position).getFrom().toLowerCase();
+        }
         String type = listStorage.get(position).getType().toLowerCase();
         JSONObject attachmentJSON = listStorage.get(position).getAttachmentJson();
         String templateType = "";

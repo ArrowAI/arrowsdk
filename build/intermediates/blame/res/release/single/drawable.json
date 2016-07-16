@@ -1,0 +1,382 @@
+[
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\search.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\search.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\arrowup.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\arrowup.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\round_corners_right.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\round_corners_right.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_item_background_holo_light.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_switch_thumb_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_radio_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_check_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\closebutton.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\closebutton.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\common_plus_signin_btn_icon_dark.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_plus_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\i1.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\i1.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\banktext.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\banktext.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\imgplaceholder.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\imgplaceholder.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\ic_history_white_24dp.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\ic_history_white_24dp.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_icon_dark.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_google_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_colored_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\side_nav_bar.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\side_nav_bar.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\rsz_bot_3.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\rsz_bot_3.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_btn_borderless_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\bank.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\bank.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\logo_white.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\logo_white.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\creditcard.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\creditcard.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\account_balance.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\account_balance.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\home.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\home.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\bot_2.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\bot_2.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\statement.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\statement.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\right_chat.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\right_chat.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\arrowico.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\arrowico.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_text_light.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\suppot.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\suppot.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\bg.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\bg.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\round_white.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\round_white.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\chat_bubble_gray.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\chat_bubble_gray.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\design_snackbar_background.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\drawable\\design_snackbar_background.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\recharge.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\recharge.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\chat_box_container.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\chat_box_container.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\ic_info_white_24dp.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\ic_info_white_24dp.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\typing.gif",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\typing.gif"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\bot_3.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\bot_3.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\rsz_bot_4.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\rsz_bot_4.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\close.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\close.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_dialog_material_background_dark.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_dialog_material_background_dark.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\common_plus_signin_btn_text_dark.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_plus_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\i3.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\i3.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\me.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\me.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\rsz_bot_1.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\rsz_bot_1.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\rounded_corner.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\rounded_corner.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_icon_light.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_google_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\math.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\math.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_edit_text_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\chat.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\chat.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\round_corners_left.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\round_corners_left.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\out_message_bg.9.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\out_message_bg.9.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\payment.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\payment.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\rounded_button.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\rounded_button.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\in_message_bg.9.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\in_message_bg.9.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\alert.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\alert.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_dialog_material_background_light.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_dialog_material_background_light.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\ic_back.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\ic_back.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\common_plus_signin_btn_text_light.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_plus_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\common_plus_signin_btn_icon_light.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_plus_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\left_chat.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\left_chat.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_text_cursor_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\i4.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\i4.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ratingbar_full_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_ratingbar_full_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_tab_indicator_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\bot_4.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\bot_4.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\bot_1.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\bot_1.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\design_fab_background.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\drawable\\design_fab_background.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\rsz_bot_2.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\rsz_bot_2.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\physics.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\physics.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\i2.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\i2.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\ic_reorder_white_24dp.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\ic_reorder_white_24dp.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_cab_background_top_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\search_bt.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\search_bt.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\chemistry_logo.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\chemistry_logo.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_textfield_search_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\abc_seekbar_track_material.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\confirm.jpg",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\confirm.jpg"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_text_dark.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\banktr.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\banktr.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\chat_bubble_green.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\chat_bubble_green.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\add_money.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\add_money.png"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\grid_color_selector.xml",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\grid_color_selector.xml"
+    },
+    {
+        "merged": "E:\\officework\\chatshellandroid\\chatlibandroid\\build\\intermediates\\res\\merged\\release\\drawable\\arrowdown.png",
+        "source": "E:\\officework\\chatshellandroid\\chatlibandroid\\src\\main\\res\\drawable\\arrowdown.png"
+    }
+]

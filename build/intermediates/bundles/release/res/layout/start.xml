@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="?attr/colorPrimary"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:id="@+id/frameLayout"
+        android:layout_below="@+id/banner"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/accountManagement"
+            android:layout_gravity="left|bottom"
+            android:layout_marginLeft="80dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/account_balance" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Basic Account Management"
+            android:layout_height="wrap_content"
+            android:id="@+id/top1text"
+            android:layout_marginLeft="31dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="bottom|left"
+            android:textSize="10dp" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/transferMoney"
+            android:layout_gravity="left|bottom"
+
+            android:layout_marginLeft="259dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/add_money" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Recharge and Payment"
+            android:layout_height="wrap_content"
+            android:id="@+id/top2text"
+            android:layout_marginLeft="219dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="bottom|left"
+            android:textSize="10dp" />
+
+        <!--<ImageView-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:id="@+id/search_card"-->
+        <!--android:layout_gravity="left|bottom"-->
+        <!--android:layout_marginLeft="285dp"-->
+        <!--android:layout_marginBottom="30dp"-->
+        <!--android:src="@drawable/search" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:text="Serarch Card"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/top3text"-->
+        <!--android:layout_marginLeft="277dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:layout_gravity="bottom|left"-->
+        <!--android:textSize="10dp"-->
+        <!--android:capitalize="characters" />-->
+
+
+    </FrameLayout>
+</LinearLayout>
