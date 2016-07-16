@@ -78,9 +78,8 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        Intent myIntent = new Intent(getContext(), SplashActivity.class);
+        Intent myIntent = new Intent(getContext(), ChatActivity.class);
         getContext().startActivity(myIntent);
-
         return false;
     }
 
@@ -231,6 +230,7 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
     public int getCornerRadius() {
         return mCornerRadius;
     }
+
 
 
 

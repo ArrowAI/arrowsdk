@@ -62,7 +62,7 @@ public class SplashActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    void bindMenu() {
+  public   void bindMenu() {
         AppConfiguration appConfiguration= new AppConfiguration();
         String url = "http://apps.arrowai.com/api/application.php";
         JSONObject map = new JSONObject();
@@ -88,8 +88,6 @@ public class SplashActivity extends AppCompatActivity {
                             }
                         }
                         saveSharedPref(bots.toString(), sideMenu.toString());
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(intent);
 
                     }
 
