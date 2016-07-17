@@ -1,14 +1,25 @@
 buildscript {
     repositories {
+        jcenter()
+        mavenCentral()
         maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
         classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 apply plugin: 'com.android.library'
 
+
+allprojects {
+    repositories {
+        mavenCentral() // Add following
+        jcenter()
+    }
+}
 
 repositories {
 
@@ -46,6 +57,12 @@ android {
     }
 }
 
+ext {
+    PUBLISH_GROUP_ID = 'com.arrowai.chat'
+    PUBLISH_ARTIFACT_ID = 'arrowaichat'
+    PUBLISH_VERSION = '1.0'
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -62,3 +79,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.android.support:support-v4:23.4.0'
 }
+
+apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
