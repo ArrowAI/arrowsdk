@@ -1,19 +1,32 @@
 package com.arrowai.chat.Model;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
-
+import android.util.Log;
+import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.arrowai.chat.Activity.Chat;
+import com.arrowai.chat.Activity.ChatActivity;
+import com.arrowai.chat.Activity.LoginActivity;
+import com.arrowai.chat.Activity.SplashActivity;
+import com.arrowai.chat.Activity.User;
 import com.arrowai.chat.util.AppController;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,25 +38,72 @@ import org.json.JSONObject;
 public class AppConfiguration {
     public AppConfiguration() {
     }
+
     String bot;
     String sideMenus;
     String appId;
-
     JSONArray bots, sideMenu = new JSONArray();
     FirebaseDatabase database;
     DatabaseReference myRef;
-    public  void setAppId(android.content.Context ctx, String appId) {
-        SharedPreferences prefs =ctx.getSharedPreferences("ChatPrefs", 0);
+    Query myRefQuery;
+
+    public void setAppId(android.content.Context ctx, String appId) {
+        SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("appId", appId);
         editor.commit();
-        getUserId(ctx);
-        getSharedPref(ctx);
-        if (!bot.equals("")) {
 
-        } else {
-            bindMenu(ctx);
+    }
+    public void logIn(final String userName, final String email,final String mobile,String id ,JSONObject jsonObject, final android.content.Context ctx) {
+        String url = "http://54.88.238.120:8081/auth/login";
+        JSONObject map = new JSONObject();
+        try {
+            map.put("appId",appId );
+            map.put("uniqueId", email);
+            map.put("otherParameters", jsonObject);
+            //appid,unique id,otherparameters,deviceinfo
+        } catch (JSONException e) {
         }
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                String loginStatus = "";
+                try {
+                    if (response.has("status")) {
+                        loginStatus = response.getString("status").toString();
+                        if (loginStatus.equals("success")) {
+                            JSONObject jsonObj = response.getJSONObject("data");
+                            String name = jsonObj.getString("name");
+                            String email = jsonObj.getString("email");
+                            String mobile = jsonObj.getString("phone");
+                            String key = jsonObj.getString("key");
+                            String id = jsonObj.getString("_id");
+
+                        } else {
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        AppController.getInstance().addToRequestQueue(jsonObjReq);
+    }
+
+    public void register(final String userName, final String email,final String mobile,String id ,JSONObject jsonObject, final android.content.Context ctx) {
+
+    }
+
+    public void logOut(android.content.Context ctx) {
+        saveSharedPref(ctx,"","");
+        getUserId(ctx);
+
     }
     public void getUserId(android.content.Context ctx) {
         String android_id = Settings.Secure.getString(ctx.getContentResolver(),
@@ -79,74 +139,20 @@ public class AppConfiguration {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("appUser/guest");
-
         myRef.push().setValue(deviceinfo);
         String key = myRef.getKey();
-        saveSharedPref(ctx,key,key);
+        saveSharedPref(ctx, key, key);
     }
-    public void saveSharedPref(android.content.Context ctx,String name, String key) {
+
+    private void saveSharedPref(android.content.Context ctx, String name, String key) {
         SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("username", name);
         editor.putString("userId", key);
         editor.commit();
     }
-    public   void bindMenu (final android.content.Context ctx) {
-        AppConfiguration appConfiguration= new AppConfiguration();
-        String url = "http://apps.arrowai.com/api/application.php";
-        JSONObject map = new JSONObject();
-        try {
-            map.put("appId", appId);
-            map.put("action", "detail");
-        } catch (JSONException e) {
-        }
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    if (response.has("error")) {
-                        return;
-                    }
-                    if (response.has("data")) {
-                        JSONObject jsonObj = response.getJSONObject("data");
-                        bots = jsonObj.getJSONArray("bots");
-                        if (jsonObj.has("sideMenu")) {
-                            String sMenu = jsonObj.getString("sideMenu");
-                            if (sMenu != "null") {
-                                sideMenu = jsonObj.getJSONArray("sideMenu");
-                            }
-                        }
-                        saveBots(ctx,bots.toString(), sideMenu.toString());
 
-                    }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        AppController.getInstance().addToRequestQueue(jsonObjReq);
-    }
 
-    public void getSharedPref(android.content.Context ctx) {
-        SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
-        bot = prefs.getString("bots", "");
-        sideMenus = prefs.getString("sideMenu", "");
-        appId=prefs.getString("appId", null);
-
-    }
-
-    public void saveBots(android.content.Context ctx,String bots, String sideMenu) {
-        SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("bots", bots);
-        editor.putString("sideMenu", sideMenu);
-        editor.commit();
-    }
 
 }
