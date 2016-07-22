@@ -9,6 +9,8 @@ import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -48,6 +50,7 @@ public class ArrowAi {
     FirebaseDatabase database;
     DatabaseReference myRef;
     Query myRefQuery;
+    String userId = "";
 
     public void setAppId(android.content.Context ctx, String appId) {
         SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
@@ -56,15 +59,19 @@ public class ArrowAi {
         editor.commit();
 
     }
-    public void logIn(String uniqueId ,JSONObject jsonObject, final android.content.Context ctx) {
-        String url = "http://54.88.238.120:8081/auth/login";
+
+    public void guestLogin(String uniqueId, JSONObject jsonObject, final android.content.Context ctx) {
+        setupAppId(ctx);
+        String url = "http://54.88.238.120:8081/users/add";
+        JSONObject deviceInfo = new JSONObject();
+        deviceInfo = getUserId(ctx);
         JSONObject map = new JSONObject();
         try {
-            map.put("appId",appId );
-            map.put("uniqueId",uniqueId);
-            map.put("otherParameters", jsonObject);
-            map.put("deviceinfo","");
-            //appid,unique id,otherparameters,deviceinfo
+            map.put("applicationId", appId);
+            map.put("data", jsonObject);
+            map.put("uniqId", uniqueId);
+            map.put("deviceInfo", deviceInfo);
+
         } catch (JSONException e) {
         }
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
@@ -74,13 +81,62 @@ public class ArrowAi {
                 try {
                     if (response.has("code")) {
                         loginStatus = response.getInt("code");
-                        if (loginStatus==0) {
-                            JSONObject jsonObj = response.getJSONObject("data");
-                            String name = jsonObj.getString("name");
-                            String email = jsonObj.getString("email");
-                            String mobile = jsonObj.getString("phone");
-                            String key = jsonObj.getString("key");
-                            String id = jsonObj.getString("_id");
+                        if (loginStatus == 0) {
+                            userId = response.getString("userId");
+                            saveSharedPref(ctx, "geustUser", userId);
+                            Intent myIntent = new Intent(ctx, ChatActivity.class);
+                            ctx.startActivity(myIntent);
+
+
+                        } else {
+
+                        }
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        queue.add(jsonObjReq);
+
+    }
+
+    public void logIn(String uniqueId, JSONObject jsonObject, final android.content.Context ctx) {
+        setupAppId(ctx);
+        String url = "http://54.88.238.120:8081/users/add";
+        JSONObject deviceInfo = new JSONObject();
+        deviceInfo = getUserId(ctx);
+        JSONObject map = new JSONObject();
+        try {
+            map.put("applicationId", appId);
+            map.put("uniqId", uniqueId);
+            map.put("data", jsonObject);
+            map.put("deviceInfo", deviceInfo);
+
+        } catch (JSONException e) {
+        }
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                int loginStatus = 0;
+                try {
+                    if (response.has("code")) {
+                        loginStatus = response.getInt("code");
+                        if (loginStatus == 0) {
+                            userId = response.getString("userId");
+                            saveSharedPref(ctx, userId, userId);
+
+
                         } else {
 
                         }
@@ -95,53 +151,92 @@ public class ArrowAi {
                 error.printStackTrace();
             }
         });
-        RequestQueue requestQueue = Volley.newRequestQueue(ctx);
-        requestQueue.add(jsonObjReq);
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        queue.add(jsonObjReq);
     }
 
+    public void logOut(final android.content.Context ctx,String applicationId) {
+        saveSharedPref(ctx, "", "");
+        String url = "http://54.88.238.120:8081/users/add";
+        JSONObject deviceInfo = new JSONObject();
+        deviceInfo = getUserId(ctx);
+        JSONObject map = new JSONObject();
+        try {
+            map.put("applicationId", applicationId);
+            map.put("uniqId", null);
+            map.put("data", null);
+            map.put("deviceInfo", deviceInfo);
 
-    public void logOut(android.content.Context ctx) {
-        saveSharedPref(ctx,"","");
-        getUserId(ctx);
+        } catch (JSONException e) {
+        }
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                int loginStatus = 0;
+                try {
+                    if (response.has("code")) {
+                        loginStatus = response.getInt("code");
+                        if (loginStatus == 0) {
+                            userId = response.getString("userId");
+                            saveSharedPref(ctx, userId, userId);
+
+
+                        } else {
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        queue.add(jsonObjReq);
+
 
     }
-    public void getUserId(android.content.Context ctx) {
+
+    public JSONObject getUserId(android.content.Context ctx) {
         String android_id = Settings.Secure.getString(ctx.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(android.content.Context.TELEPHONY_SERVICE);
         WifiManager wm = (WifiManager) ctx.getSystemService(android.content.Context.WIFI_SERVICE);
         String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-        String deviceinfo = "IMEI : " + ""//telephonyManager.getDeviceId()
-                + " \nIP : " + ip
-                + " \nANDROID_ID : " + android_id
-                + " \nVERSION.RELEASE : " + Build.VERSION.RELEASE
-                + " \nVERSION.INCREMENTAL : " + Build.VERSION.INCREMENTAL
-                + " \nVERSION.SDK.NUMBER : " + Build.VERSION.SDK_INT
-                + " \nBOARD : " + Build.BOARD
-                + " \nBOOTLOADER : " + Build.BOOTLOADER
-                + " \nBRAND : " + Build.BRAND
-                + " \nCPU_ABI : " + Build.CPU_ABI
-                + " \nCPU_ABI2 : " + Build.CPU_ABI2
-                + " \nDISPLAY : " + Build.DISPLAY
-                + " \nFINGERPRINT : " + Build.FINGERPRINT
-                + " \nHARDWARE : " + Build.HARDWARE
-                + " \nHOST : " + Build.HOST
-                + " \nID : " + Build.ID
-                + " \nMANUFACTURER : " + Build.MANUFACTURER
-                + " \nMODEL : " + Build.MODEL
-                + " \nPRODUCT : " + Build.PRODUCT
-                + " \nSERIAL : " + Build.SERIAL
-                + " \nTAGS : " + Build.TAGS
-                + " \nTIME : " + Build.TIME
-                + " \nTYPE : " + Build.TYPE
-                + " \nUNKNOWN : " + Build.UNKNOWN
-                + " \nUSER : " + Build.USER;
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("appUser/guest");
-        myRef.push().setValue(deviceinfo);
-        String key = myRef.getKey();
-        saveSharedPref(ctx, key, key);
+        JSONObject deviceData = new JSONObject();
+        try {
+            deviceData.put("IP", ip);
+            deviceData.put("ANDROID_ID", android_id);
+//            deviceData.put("VERSION.RELEASE ", Build.VERSION.RELEASE);
+//            deviceData.put("VERSION.INCREMENTAL", Build.VERSION.INCREMENTAL);
+            //  deviceData.put("VERSION.SDK.NUMBER", Build.VERSION.SDK_INT).toString();
+            deviceData.put("BOARD", Build.BOARD);
+            deviceData.put("BOOTLOADER", Build.BOOTLOADER);
+            deviceData.put("BRAND", Build.BRAND);
+            deviceData.put("CPU_ABI", Build.CPU_ABI);
+            deviceData.put("CPU_ABI2", Build.CPU_ABI2);
+            deviceData.put("DISPLAY", Build.DISPLAY);
+            deviceData.put("FINGERPRINT", Build.FINGERPRINT);
+            deviceData.put("HARDWARE", Build.HARDWARE);
+            deviceData.put("HOST", Build.HOST);
+            deviceData.put("ID", Build.ID);
+            deviceData.put("MANUFACTURER", Build.MANUFACTURER);
+            deviceData.put("MODEL", Build.MODEL);
+            deviceData.put("PRODUCT", Build.PRODUCT);
+            deviceData.put("SERIAL", Build.SERIAL);
+            deviceData.put("TAGS", Build.TAGS);
+            deviceData.put("TIME", Build.TIME).toString();
+            deviceData.put("TYPE", Build.TYPE);
+            deviceData.put("UNKNOWN", Build.UNKNOWN);
+            deviceData.put("USER", Build.USER);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return deviceData;
     }
 
     private void saveSharedPref(android.content.Context ctx, String name, String key) {
@@ -152,7 +247,16 @@ public class ArrowAi {
         editor.commit();
     }
 
-
-
+    private void setupAppId(android.content.Context ctx) {
+        SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
+        appId = prefs.getString("appId", null);
+    }
+    public void showLeftMenu(Boolean show,android.content.Context ctx)
+    {
+        SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("showMenu",show);
+        editor.commit();
+    }
 
 }

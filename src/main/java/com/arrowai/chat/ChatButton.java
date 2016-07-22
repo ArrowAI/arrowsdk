@@ -62,6 +62,7 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
     String sideMenus;
     String appId;
     String userName;
+    String userId;
     JSONArray bots, sideMenu = new JSONArray();
 
     boolean isShadowColorDefined = false;
@@ -100,17 +101,22 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
         if (bot != null) {
         } else {
             bindMenu(getContext());
+
         }
-        if (userName == null) {
-            appConfiguration.getUserId(getContext());
+        if (userId == "") {
+            appConfiguration.guestLogin(null, null, getContext());
+            getSharedPref(getContext());
         }
-        Intent myIntent = new Intent(getContext(), ChatActivity.class);
-        getContext().startActivity(myIntent);
+        if (bot != null && userId != "") {
+            Intent myIntent = new Intent(getContext(), ChatActivity.class);
+            getContext().startActivity(myIntent);
+
+        }
+
         return false;
     }
 
     public void bindMenu(final Context ctx) {
-        ArrowAi appConfiguration = new ArrowAi();
         String url = "http://apps.arrowai.com/api/application.php";
         JSONObject map = new JSONObject();
         try {
@@ -135,6 +141,8 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
                             }
                         }
                         saveBots(ctx, bots.toString(), sideMenu.toString());
+                        Intent myIntent = new Intent(getContext(), ChatActivity.class);
+                        getContext().startActivity(myIntent);
                     }
 
                 } catch (JSONException e) {
@@ -147,7 +155,8 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
                 error.printStackTrace();
             }
         });
-        AppController.getInstance().addToRequestQueue(jsonObjReq);
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        queue.add(jsonObjReq);
     }
 
     public void getSharedPref(Context ctx) {
@@ -156,6 +165,7 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
         sideMenus = prefs.getString("sideMenu", null);
         appId = prefs.getString("appId", null);
         userName = prefs.getString("username", null);
+        userId = prefs.getString("userId", null);
     }
 
     public void saveBots(Context ctx, String bots, String sideMenu) {

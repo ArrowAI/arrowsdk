@@ -31,10 +31,6 @@
             android:name="com.arrowai.chat.Activity.LoginActivity"
             android:label="Banking Bot"
             android:theme="@style/AppTheme.Dark"></activity>
-        <activity
-            android:name="com.arrowai.chat.Activity.RegisterActivity"
-            android:label="Register"
-            android:theme="@style/AppTheme.Dark" />
 
         <!-- <activity -->
         <!-- android:name=".ConversationHistory" -->
@@ -45,7 +41,6 @@
         <!-- <meta-data -->
         <!-- android:name="android.support.PARENT_ACTIVITY" -->
         <!-- android:value="com.btpltech.bankingbot.Activity.MainActivity" /> -->
-        <activity android:name="com.arrowai.chat.Activity.ActivityDetail" />
         <!-- <activity -->
         <!-- android:name=".MainActivity" -->
         <!-- android:label="Home" > -->
@@ -56,10 +51,6 @@
         <activity
             android:name="com.arrowai.chat.Activity.ListChatDetails"
             android:label="Details" />
-        <activity android:name="com.arrowai.chat.Activity.AddMoneyActivity" />
-        <activity android:name="com.arrowai.chat.Activity.PaymentActivity" />
-        <activity android:name="com.arrowai.chat.Activity.BankStatementActivity" />
-        <activity android:name="com.arrowai.chat.Activity.AccountBalanceActivity" />
         <activity
             android:name="com.arrowai.chat.Activity.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
