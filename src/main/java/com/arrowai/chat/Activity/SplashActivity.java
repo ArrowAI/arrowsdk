@@ -9,7 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.arrowai.chat.Model.AppConfiguration;
+import com.arrowai.chat.Model.ArrowAi;
 import com.arrowai.chat.R;
 import com.arrowai.chat.util.AppController;
 
@@ -56,7 +56,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
   public   void bindMenu() {
-        AppConfiguration appConfiguration= new AppConfiguration();
+        ArrowAi appConfiguration= new ArrowAi();
         String url = "http://apps.arrowai.com/api/application.php";
         JSONObject map = new JSONObject();
         try {

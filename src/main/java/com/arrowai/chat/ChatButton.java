@@ -26,13 +26,15 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.arrowai.chat.Activity.ChatActivity;
 import com.arrowai.chat.Activity.LoginActivity;
 import com.arrowai.chat.Activity.SplashActivity;
-import com.arrowai.chat.Model.AppConfiguration;
+import com.arrowai.chat.Model.ArrowAi;
 import com.arrowai.chat.util.AppController;
 
 import org.json.JSONArray;
@@ -60,6 +62,7 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
     String sideMenus;
     String appId;
     String userName;
+    String userId;
     JSONArray bots, sideMenu = new JSONArray();
 
     boolean isShadowColorDefined = false;
@@ -93,22 +96,27 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        AppConfiguration appConfiguration = new AppConfiguration();
+        ArrowAi appConfiguration = new ArrowAi();
         getSharedPref(getContext());
         if (bot != null) {
         } else {
             bindMenu(getContext());
+
         }
-        if (userName == null) {
-            appConfiguration.getUserId(getContext());
+        if (userId == "") {
+            appConfiguration.guestLogin(null, null, getContext());
+            getSharedPref(getContext());
         }
-        Intent myIntent = new Intent(getContext(), ChatActivity.class);
-        getContext().startActivity(myIntent);
+        if (bot != null && userId != "") {
+            Intent myIntent = new Intent(getContext(), ChatActivity.class);
+            getContext().startActivity(myIntent);
+
+        }
+
         return false;
     }
 
     public void bindMenu(final Context ctx) {
-        AppConfiguration appConfiguration = new AppConfiguration();
         String url = "http://apps.arrowai.com/api/application.php";
         JSONObject map = new JSONObject();
         try {
@@ -133,6 +141,8 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
                             }
                         }
                         saveBots(ctx, bots.toString(), sideMenu.toString());
+                        Intent myIntent = new Intent(getContext(), ChatActivity.class);
+                        getContext().startActivity(myIntent);
                     }
 
                 } catch (JSONException e) {
@@ -145,7 +155,8 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
                 error.printStackTrace();
             }
         });
-        AppController.getInstance().addToRequestQueue(jsonObjReq);
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        queue.add(jsonObjReq);
     }
 
     public void getSharedPref(Context ctx) {
@@ -154,6 +165,7 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
         sideMenus = prefs.getString("sideMenu", null);
         appId = prefs.getString("appId", null);
         userName = prefs.getString("username", null);
+        userId = prefs.getString("userId", null);
     }
 
     public void saveBots(Context ctx, String bots, String sideMenu) {

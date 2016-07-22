@@ -30,7 +30,7 @@ import android.widget.TextView;
 import com.arrowai.chat.Adapter.AdapterChatList;
 import com.arrowai.chat.Adapter.SideMenuAdaper;
 import com.arrowai.chat.Adapter.TopMenuAdapter;
-import com.arrowai.chat.Model.AppConfiguration;
+import com.arrowai.chat.Model.ArrowAi;
 import com.arrowai.chat.Model.IntitialResponse;
 import com.arrowai.chat.Model.NavItem;
 import com.arrowai.chat.Model.RequestParams;
@@ -112,6 +112,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private Firebase mFirebaseRef;
     String bot;
     String sideMenus;
+    Boolean showSideMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +132,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     }
                 }
         );
-        AppConfiguration appConfiguration = new AppConfiguration();
+        ArrowAi appConfiguration = new ArrowAi();
 
         menuItem = new ArrayList<>();
         topMenueGrid = (GridView) findViewById(R.id.gridTop);
@@ -167,11 +168,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         }
         BindTopMenu();
         addDrawerItems();
-
         Random r = new Random();
         Intent intent = getIntent();
         botName = "Bhaiya Ji";
-
         getSupportActionBar().setTitle("Bhaiya Ji");
         //bindList();
         inputText = (EditText) findViewById(R.id.messageInput);
@@ -276,13 +275,11 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-
     public void sendMessage(String chatText, final boolean botResend, JSONObject payloadParam) {
         if (chatText.equals("") && !botResend) {
             return;
         }
         try {
-
             if (payloadParam != null) {
                 String variable = "", value = "";
                 buttonPayload payload = new buttonPayload();
@@ -312,8 +309,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         } catch (Exception e) {
 
         }
-
-
     }
 
     void bindInitialGreatings(String response) {
@@ -414,9 +409,15 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
+        if(showSideMenu) {
+            mDrawerToggle.setDrawerIndicatorEnabled(true);
+            mDrawerLayout.setDrawerListener(mDrawerToggle);
+        }
+        else {
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
 
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
     private void addDrawerItems() {
@@ -474,6 +475,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("username", name);
+        editor.putString("userId", name);
         editor.commit();
     }
 
@@ -495,10 +497,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             listViewChat.setEmptyView(new View(ChatActivity.this));
         }
         if (id == R.id.action_logout) {
-            saveSharedPref("");
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            finish();
             return true;
         }
         if (id == R.id.action_arrowup) {
@@ -535,12 +534,12 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         bot = prefs.getString("bots", null);
         sideMenus = prefs.getString("sideMenu", null);
         appId = prefs.getString("appId", null);
+        showSideMenu=prefs.getBoolean("showMenu", false);
         if (mUsername == null) {
             Random r = new Random();
             prefs.edit().putString("username", mUsername).commit();
         }
     }
-
 
 
     private void bindList() {
