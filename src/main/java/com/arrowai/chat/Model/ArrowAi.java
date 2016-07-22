@@ -10,9 +10,11 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.arrowai.chat.Activity.Chat;
 import com.arrowai.chat.Activity.ChatActivity;
 import com.arrowai.chat.Activity.LoginActivity;
@@ -35,8 +37,8 @@ import org.json.JSONObject;
 /**
  * Created by Ravinder on 7/14/2016.
  */
-public class AppConfiguration {
-    public AppConfiguration() {
+public class ArrowAi {
+    public ArrowAi() {
     }
 
     String bot;
@@ -54,31 +56,31 @@ public class AppConfiguration {
         editor.commit();
 
     }
-    public void logIn(final String userName, final String email,final String mobile,String id ,JSONObject jsonObject, final android.content.Context ctx) {
+    public void logIn(String uniqueId ,JSONObject jsonObject, final android.content.Context ctx) {
         String url = "http://54.88.238.120:8081/auth/login";
         JSONObject map = new JSONObject();
         try {
             map.put("appId",appId );
-            map.put("uniqueId", email);
+            map.put("uniqueId",uniqueId);
             map.put("otherParameters", jsonObject);
+            map.put("deviceinfo","");
             //appid,unique id,otherparameters,deviceinfo
         } catch (JSONException e) {
         }
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                String loginStatus = "";
+                int loginStatus = 0;
                 try {
-                    if (response.has("status")) {
-                        loginStatus = response.getString("status").toString();
-                        if (loginStatus.equals("success")) {
+                    if (response.has("code")) {
+                        loginStatus = response.getInt("code");
+                        if (loginStatus==0) {
                             JSONObject jsonObj = response.getJSONObject("data");
                             String name = jsonObj.getString("name");
                             String email = jsonObj.getString("email");
                             String mobile = jsonObj.getString("phone");
                             String key = jsonObj.getString("key");
                             String id = jsonObj.getString("_id");
-
                         } else {
 
                         }
@@ -93,12 +95,10 @@ public class AppConfiguration {
                 error.printStackTrace();
             }
         });
-        AppController.getInstance().addToRequestQueue(jsonObjReq);
+        RequestQueue requestQueue = Volley.newRequestQueue(ctx);
+        requestQueue.add(jsonObjReq);
     }
 
-    public void register(final String userName, final String email,final String mobile,String id ,JSONObject jsonObject, final android.content.Context ctx) {
-
-    }
 
     public void logOut(android.content.Context ctx) {
         saveSharedPref(ctx,"","");

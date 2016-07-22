@@ -26,13 +26,15 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.arrowai.chat.Activity.ChatActivity;
 import com.arrowai.chat.Activity.LoginActivity;
 import com.arrowai.chat.Activity.SplashActivity;
-import com.arrowai.chat.Model.AppConfiguration;
+import com.arrowai.chat.Model.ArrowAi;
 import com.arrowai.chat.util.AppController;
 
 import org.json.JSONArray;
@@ -93,7 +95,7 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        AppConfiguration appConfiguration = new AppConfiguration();
+        ArrowAi appConfiguration = new ArrowAi();
         getSharedPref(getContext());
         if (bot != null) {
         } else {
@@ -108,7 +110,7 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
     }
 
     public void bindMenu(final Context ctx) {
-        AppConfiguration appConfiguration = new AppConfiguration();
+        ArrowAi appConfiguration = new ArrowAi();
         String url = "http://apps.arrowai.com/api/application.php";
         JSONObject map = new JSONObject();
         try {

@@ -30,7 +30,7 @@ import android.widget.TextView;
 import com.arrowai.chat.Adapter.AdapterChatList;
 import com.arrowai.chat.Adapter.SideMenuAdaper;
 import com.arrowai.chat.Adapter.TopMenuAdapter;
-import com.arrowai.chat.Model.AppConfiguration;
+import com.arrowai.chat.Model.ArrowAi;
 import com.arrowai.chat.Model.IntitialResponse;
 import com.arrowai.chat.Model.NavItem;
 import com.arrowai.chat.Model.RequestParams;
@@ -131,7 +131,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     }
                 }
         );
-        AppConfiguration appConfiguration = new AppConfiguration();
+        ArrowAi appConfiguration = new ArrowAi();
 
         menuItem = new ArrayList<>();
         topMenueGrid = (GridView) findViewById(R.id.gridTop);
@@ -167,11 +167,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         }
         BindTopMenu();
         addDrawerItems();
-
         Random r = new Random();
         Intent intent = getIntent();
         botName = "Bhaiya Ji";
-
         getSupportActionBar().setTitle("Bhaiya Ji");
         //bindList();
         inputText = (EditText) findViewById(R.id.messageInput);
@@ -276,13 +274,11 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-
     public void sendMessage(String chatText, final boolean botResend, JSONObject payloadParam) {
         if (chatText.equals("") && !botResend) {
             return;
         }
         try {
-
             if (payloadParam != null) {
                 String variable = "", value = "";
                 buttonPayload payload = new buttonPayload();
@@ -312,8 +308,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         } catch (Exception e) {
 
         }
-
-
     }
 
     void bindInitialGreatings(String response) {
