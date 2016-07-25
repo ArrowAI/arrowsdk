@@ -57,10 +57,18 @@
                 android:lines="1"
                 android:singleLine="true"
                 android:textColor="@color/black"/>
-
+                <ImageButton
+                                   android:id="@+id/btnSpeak"
+                                   android:layout_width="40dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_marginTop="3dp"
+                                   android:layout_marginRight="5dp"
+                                   style="?android:attr/borderlessButtonStyle"
+                                   android:src="@drawable/ico_mic"/>
             <ImageButton
                 android:id="@+id/sendButton"
                 android:layout_width="40dp"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="5dp"
