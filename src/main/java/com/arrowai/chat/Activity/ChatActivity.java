@@ -58,6 +58,7 @@ import com.firebase.client.ValueEventListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
@@ -181,8 +182,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         addDrawerItems();
         Random r = new Random();
         Intent intent = getIntent();
-        botName = "Bhaiya Ji";
-        getSupportActionBar().setTitle("Bhaiya Ji");
+        botName = "ChatNBank";
+        getSupportActionBar().setTitle("ChatNBank");
         //bindList();
         inputText = (EditText) findViewById(R.id.messageInput);
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -213,8 +214,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
             }
 
             @Override
@@ -305,16 +304,19 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                                                         } catch (Throwable t) {
                                                         }
                                                     } else {
-                                                        if (dataSnapshot.hasChild("start")) {
-                                                            String startVal = dataSnapshot.child("start").getValue().toString();
-                                                            if (startVal == "1") {
-                                                                return;
-                                                            } else {
-                                                                IntitialResponse res = dataSnapshot.getValue(IntitialResponse.class);
-                                                                Gson gso = new Gson();
-                                                                String resJson = gso.toJson(res);
-                                                                bindInitialGreatings(resJson);
+                                                        if (responseObj.has("start")) {
+                                                            try {
+                                                                String startVal = responseObj.getString("start");
+                                                                if (startVal == "1") {
+                                                                    return;
+                                                                } else {
+                                                                    String IntitialResponse = gson.toJson(dataSnapshot.getValue());
+                                                                    bindInitialGreatings(IntitialResponse);
+                                                                }
+                                                            } catch (Exception ex) {
+
                                                             }
+
                                                         }
                                                     }
                                                     mChatListAdapter.notifyDataSetChanged();
