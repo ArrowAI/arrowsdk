@@ -1,5 +1,6 @@
 package com.arrowai.chat.Model;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
@@ -51,6 +52,7 @@ public class ArrowAi {
     DatabaseReference myRef;
     Query myRefQuery;
     String userId = "";
+    String userName;
 
     public void setAppId(android.content.Context ctx, String appId) {
         SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
@@ -111,6 +113,25 @@ public class ArrowAi {
 
     }
 
+    public void startChat(android.content.Context context) {
+        ArrowAi appConfiguration = new ArrowAi();
+        getSharedPref(context);
+        if (bot != null) {
+        } else {
+            bindMenu(context);
+
+        }
+        if (userId == "") {
+            appConfiguration.guestLogin(null, null, context);
+            getSharedPref(context);
+        }
+        if (bot != null && userId != "") {
+            Intent myIntent = new Intent(context, ChatActivity.class);
+            context.startActivity(myIntent);
+
+        }
+    }
+
     public void logIn(String uniqueId, JSONObject jsonObject, final android.content.Context ctx) {
         setupAppId(ctx);
         String url = "http://54.88.238.120:8081/users/add";
@@ -135,8 +156,8 @@ public class ArrowAi {
                         if (loginStatus == 0) {
                             userId = response.getString("userId");
                             saveSharedPref(ctx, userId, userId);
-
-
+                            Intent myIntent = new Intent(ctx, ChatActivity.class);
+                            ctx.startActivity(myIntent);
                         } else {
 
                         }
@@ -155,7 +176,7 @@ public class ArrowAi {
         queue.add(jsonObjReq);
     }
 
-    public void logOut(final android.content.Context ctx,String applicationId) {
+    public void logOut(final android.content.Context ctx, String applicationId) {
         saveSharedPref(ctx, "", "");
         String url = "http://54.88.238.120:8081/users/add";
         JSONObject deviceInfo = new JSONObject();
@@ -198,6 +219,61 @@ public class ArrowAi {
         RequestQueue queue = Volley.newRequestQueue(ctx);
         queue.add(jsonObjReq);
 
+
+    }
+
+    public void initializeArrowAi(final android.content.Context ctx,final String applicationId) {
+        ArrowAi appConfiguration = new ArrowAi();
+        getSharedPref(ctx);
+        if (bot != null) {
+        } else {
+            String url = "http://apps.arrowai.com/api/application.php";
+            JSONObject map = new JSONObject();
+            try {
+                map.put("appId", applicationId);
+                map.put("action", "detail");
+            } catch (JSONException e) {
+            }
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        if (response.has("error")) {
+                            return;
+                        }
+                        if (response.has("data")) {
+                            JSONObject jsonObj = response.getJSONObject("data");
+                            bots = jsonObj.getJSONArray("bots");
+                            if (jsonObj.has("sideMenu")) {
+                                String sMenu = jsonObj.getString("sideMenu");
+                                if (sMenu != "null") {
+                                    sideMenu = jsonObj.getJSONArray("sideMenu");
+                                }
+                            }
+                            saveBots(ctx, bots.toString(), sideMenu.toString());
+                            SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("appId", applicationId);
+                            editor.commit();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+            jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(0,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            RequestQueue queue = Volley.newRequestQueue(ctx);
+            queue.add(jsonObjReq);
+
+        }
 
     }
 
@@ -251,12 +327,74 @@ public class ArrowAi {
         SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
         appId = prefs.getString("appId", null);
     }
-    public void showLeftMenu(Boolean show,android.content.Context ctx)
-    {
+
+    public void showLeftMenu(Boolean show, android.content.Context ctx) {
         SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("showMenu",show);
+        editor.putBoolean("showMenu", show);
         editor.commit();
     }
+
+    public void bindMenu(final Context ctx) {
+        String url = "http://apps.arrowai.com/api/application.php";
+        JSONObject map = new JSONObject();
+        try {
+            map.put("appId", appId);
+            map.put("action", "detail");
+        } catch (JSONException e) {
+        }
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (response.has("error")) {
+                        return;
+                    }
+                    if (response.has("data")) {
+                        JSONObject jsonObj = response.getJSONObject("data");
+                        bots = jsonObj.getJSONArray("bots");
+                        if (jsonObj.has("sideMenu")) {
+                            String sMenu = jsonObj.getString("sideMenu");
+                            if (sMenu != "null") {
+                                sideMenu = jsonObj.getJSONArray("sideMenu");
+                            }
+                        }
+                        saveBots(ctx, bots.toString(), sideMenu.toString());
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        queue.add(jsonObjReq);
+    }
+
+    public void getSharedPref(Context ctx) {
+        SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
+        bot = prefs.getString("bots", null);
+        sideMenus = prefs.getString("sideMenu", null);
+        appId = prefs.getString("appId", null);
+        userName = prefs.getString("username", null);
+        userId = prefs.getString("userId", null);
+    }
+
+    public void saveBots(Context ctx, String bots, String sideMenu) {
+        SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("bots", bots);
+        editor.putString("sideMenu", sideMenu);
+        editor.commit();
+    }
+
 
 }

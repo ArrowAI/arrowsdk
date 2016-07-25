@@ -275,6 +275,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
     public void sendMessage(String chatText, final boolean botResend, JSONObject payloadParam) {
         if (chatText.equals("") && !botResend) {
             return;
@@ -409,11 +410,10 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
-        if(showSideMenu) {
+        if (showSideMenu) {
             mDrawerToggle.setDrawerIndicatorEnabled(true);
             mDrawerLayout.setDrawerListener(mDrawerToggle);
-        }
-        else {
+        } else {
             mDrawerToggle.setDrawerIndicatorEnabled(false);
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
@@ -534,7 +534,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         bot = prefs.getString("bots", null);
         sideMenus = prefs.getString("sideMenu", null);
         appId = prefs.getString("appId", null);
-        showSideMenu=prefs.getBoolean("showMenu", false);
+        showSideMenu = prefs.getBoolean("showMenu", false);
         if (mUsername == null) {
             Random r = new Random();
             prefs.edit().putString("username", mUsername).commit();
@@ -605,21 +605,27 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void BindTopMenu() {
+        if (bot == null) {
 
-        for (int i = 0; i < bots.length(); i++) {
-            try {
-                JSONObject jsonObject = (JSONObject) bots.get(i);
-                botId = jsonObject.getString("bot_id");
-                //botImage = jsonObject.getString("image");
-                title = jsonObject.getString("bot_text");
-                menu = new TopMenu(botId, botImage, title);
-                menuArrayList.add(menu);
-            } catch (Exception e) {
-            }
+            ArrowAi arrowAi= new ArrowAi();
+            arrowAi.bindMenu(ChatActivity.this);
+            setupUsername();
         }
-        topMenuAdapter = new TopMenuAdapter(ChatActivity.this, menuArrayList);
-        topMenueGrid.setAdapter(topMenuAdapter);
-        topMenuAdapter.notifyDataSetChanged();
+            for (int i = 0; i < bots.length(); i++) {
+                try {
+                    JSONObject jsonObject = (JSONObject) bots.get(i);
+                    botId = jsonObject.getString("bot_id");
+                    //botImage = jsonObject.getString("image");
+                    title = jsonObject.getString("bot_text");
+                    menu = new TopMenu(botId, botImage, title);
+                    menuArrayList.add(menu);
+                } catch (Exception e) {
+                }
+            }
+            topMenuAdapter = new TopMenuAdapter(ChatActivity.this, menuArrayList);
+            topMenueGrid.setAdapter(topMenuAdapter);
+            topMenuAdapter.notifyDataSetChanged();
+
 
     }
 
@@ -695,7 +701,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
 
     public void bindWidget(String type) {
-       getBotInitials();
+        getBotInitials();
     }
 
     public int getTotalHeightofListView(ListView listView) {

@@ -3,7 +3,6 @@ package com.arrowai.chat;
 /**
  * Created by rajmendra on 14/07/16.
  */
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,7 +42,6 @@ import org.json.JSONObject;
 
 
 public class ChatButton extends FloatingActionButton implements View.OnTouchListener {
-
     //Custom values
     private boolean isShadowEnabled = true;
     private int mButtonColor;
@@ -64,22 +62,18 @@ public class ChatButton extends FloatingActionButton implements View.OnTouchList
     String userName;
     String userId;
     JSONArray bots, sideMenu = new JSONArray();
-
     boolean isShadowColorDefined = false;
-
     public ChatButton(Context context) {
         super(context);
         init();
         this.setOnTouchListener(this);
     }
-
     public ChatButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
         parseAttrs(context, attrs);
         this.setOnTouchListener(this);
     }
-
     public ChatButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
