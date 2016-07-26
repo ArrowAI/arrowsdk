@@ -23,15 +23,17 @@
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay" >
             </android.support.v7.widget.Toolbar>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:id="@+id/frameLayout"
                 android:layout_below="@+id/banner"
                 android:layout_alignParentStart="true"
-                >
+               >
                 <GridView
                     android:paddingTop="5dp"
+
                     android:paddingLeft="15dp"
                     android:layout_width="match_parent"
                     android:divider="@null"
@@ -45,6 +47,24 @@
                 </GridView>
 
 
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/chatStatus"
+                android:layout_below="@+id/banner"
+                android:visibility="gone"
+                android:layout_alignParentStart="true"
+                >
+                <TextView
+                    android:id="@+id/chattingTo"
+                    android:paddingTop="@dimen/pad_10dp"
+                    android:layout_width="match_parent"
+                    android:textColor="#ffff"
+                    android:textStyle="bold"
+                    android:text="Chatting To: Recharg and Payment"
+                    android:paddingLeft="@dimen/pad_20dp"
+                    android:layout_height="match_parent" />
             </FrameLayout>
                 <RelativeLayout
 

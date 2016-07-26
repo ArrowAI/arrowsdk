@@ -243,7 +243,9 @@ public class ArrowAi {
                         }
                         if (response.has("data")) {
                             JSONObject jsonObj = response.getJSONObject("data");
+                            String appName="";
                             bots = jsonObj.getJSONArray("bots");
+                            appName=jsonObj.getString("name");
                             if (jsonObj.has("sideMenu")) {
                                 String sMenu = jsonObj.getString("sideMenu");
                                 if (sMenu != "null") {
@@ -254,6 +256,7 @@ public class ArrowAi {
                             SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
                             SharedPreferences.Editor editor = prefs.edit();
                             editor.putString("appId", applicationId);
+                            editor.putString("appName", appName);
                             editor.commit();
                         }
 

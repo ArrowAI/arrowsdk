@@ -78,7 +78,7 @@ public class TopMenuAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (context instanceof ChatActivity) {
-                    ((ChatActivity) context).setBotId(listStorage.get(position).getBotId());
+                    ((ChatActivity) context).setBotId(listStorage.get(position).getBotId(),listStorage.get(position).getName());
                 }
             }
         });
