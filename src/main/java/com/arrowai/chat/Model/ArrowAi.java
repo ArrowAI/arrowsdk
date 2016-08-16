@@ -64,7 +64,7 @@ public class ArrowAi {
 
     public void guestLogin(String uniqueId, JSONObject jsonObject, final android.content.Context ctx) {
         setupAppId(ctx);
-        String url = "http://54.88.238.120:8081/users/add";
+        String url = "https://firebase-arrowai.rhcloud.com/users/add";
         JSONObject deviceInfo = new JSONObject();
         deviceInfo = getUserId(ctx);
         JSONObject map = new JSONObject();
@@ -134,7 +134,7 @@ public class ArrowAi {
 
     public void logIn(String uniqueId, JSONObject jsonObject, final android.content.Context ctx) {
         setupAppId(ctx);
-        String url = "http://54.88.238.120:8081/users/add";
+        String url = "https://firebase-arrowai.rhcloud.com/users/add";
         JSONObject deviceInfo = new JSONObject();
         deviceInfo = getUserId(ctx);
         JSONObject map = new JSONObject();
@@ -178,7 +178,7 @@ public class ArrowAi {
 
     public void logOut(final android.content.Context ctx, String applicationId) {
         saveSharedPref(ctx, "", "");
-        String url = "http://54.88.238.120:8081/users/add";
+        String url = "https://firebase-arrowai.rhcloud.com/users/add";
         JSONObject deviceInfo = new JSONObject();
         deviceInfo = getUserId(ctx);
         JSONObject map = new JSONObject();

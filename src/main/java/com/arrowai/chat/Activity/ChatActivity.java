@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.NavigationView;
@@ -127,6 +128,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private TextToSpeech textToSpeech;
     private  TextView chattingTo;
     private FrameLayout chatStatus;
+    private  RelativeLayout msgContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,6 +180,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         } catch (Exception e) {
 
         }
+        msgContainer=(RelativeLayout) findViewById(R.id.msgContainer);
         BindTopMenu();
         addDrawerItems();
         Random r = new Random();
@@ -598,8 +601,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             listViewChat.setEmptyView(new View(ChatActivity.this));
         }
         if (id == R.id.action_logout) {
-            SharedPreferences settings = getApplicationContext().getSharedPreferences("ChatShellPrefs", Context.MODE_PRIVATE);
-            settings.edit().clear().commit();
+            PreferenceManager.getDefaultSharedPreferences(getBaseContext()).
+                    edit().clear().apply();
             finish();
             return true;
         }
@@ -758,6 +761,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void setBotId(String botsId,String name) {
+        msgContainer.setVisibility(View.VISIBLE);
         botId = botsId;
         chatStatus.setVisibility(View.VISIBLE);
         FrameLayout f = (FrameLayout) findViewById(R.id.frameLayout);
