@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.NavigationView;
@@ -125,14 +126,15 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private ImageButton btnSpeak;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private TextToSpeech textToSpeech;
+    private  TextView chattingTo;
+    private FrameLayout chatStatus;
+    private  RelativeLayout msgContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CookieHandler.setDefault(new CookieManager());
         setContentView(R.layout.activity_chat);
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setOnClickListener(
@@ -178,12 +180,12 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         } catch (Exception e) {
 
         }
+        msgContainer=(RelativeLayout) findViewById(R.id.msgContainer);
         BindTopMenu();
         addDrawerItems();
         Random r = new Random();
         Intent intent = getIntent();
-        botName = "ChatNBank";
-        getSupportActionBar().setTitle("ChatNBank");
+        getSupportActionBar().setTitle(botName);
         //bindList();
         inputText = (EditText) findViewById(R.id.messageInput);
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -197,6 +199,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }
         });
+        chatStatus=(FrameLayout) findViewById(R.id.chatStatus);
+        chattingTo =(TextView) findViewById(R.id.chattingTo);
         inputText = (EditText) findViewById(R.id.messageInput);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         btnSpeak.setOnClickListener(new View.OnClickListener() {
@@ -493,15 +497,12 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
-
     private void getBotInitials() {
         sender s = new sender(userId);
         botInitial star = new botInitial(appId, botId, 1, s, false, true, Long.valueOf(getTime()));
         myRef = database.getReference("inComingMessage");
         myRef.push().setValue(star);
     }
-
-
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             /** Called when a drawer has settled in a completely open state. */
@@ -584,16 +585,13 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         editor.putString("userId", name);
         editor.commit();
     }
-
     MenuItem menuItems;
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         menuItems = menu.findItem(R.id.action_arrowup);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -603,8 +601,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             listViewChat.setEmptyView(new View(ChatActivity.this));
         }
         if (id == R.id.action_logout) {
-            SharedPreferences settings = getApplicationContext().getSharedPreferences("ChatShellPrefs", Context.MODE_PRIVATE);
-            settings.edit().clear().commit();
+            PreferenceManager.getDefaultSharedPreferences(getBaseContext()).
+                    edit().clear().apply();
             finish();
             return true;
         }
@@ -641,13 +639,12 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         sideMenus = prefs.getString("sideMenu", null);
         appId = prefs.getString("appId", null);
         showSideMenu = prefs.getBoolean("showMenu", false);
+        botName= prefs.getString("appName", null);
         if (mUsername == null) {
             Random r = new Random();
             prefs.edit().putString("username", mUsername).commit();
         }
     }
-
-
     private void bindList() {
 //    chatList.clear();
         sqLiteAdapter.openToRead();
@@ -681,12 +678,10 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         sqLiteAdapter.close();
         setFocusLastElem();
     }
-
     private void setFocusLastElem() {
         listViewChat.setSelection(chatList.size() - 1);
 
     }
-
     Chat suggestionChat;
     JSONObject payload;
     JSONObject attachmentJson;
@@ -696,23 +691,18 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         if (chatList != null && chatList.size() > 0) {
             chat = chatList.get(chatList.size() - 1);
         }
-
         if (chat != null && chat.getType().equals("card_detail")) {
             chatList.remove(chatList.size() - 1);
         }
 
         chat = new Chat(cardName, cardDescription, "", "", "", null, "card_detail");
         chatList.add(chat);
-
         mChatListAdapter = new AdapterChatList(ChatActivity.this, chatList, mUsername);
         listViewChat.setAdapter(mChatListAdapter);
-
         setFocusLastElem();
     }
-
     public void BindTopMenu() {
         if (bot == null) {
-
             ArrowAi arrowAi = new ArrowAi();
             arrowAi.bindMenu(ChatActivity.this);
             setupUsername();
@@ -764,45 +754,20 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.accountManagement) {
-            AccountManagement();
 
-        } else if (id == R.id.transferMoney) {
-            RechargeAndPayments();
-
-        } else if (id == R.id.search_card) {
-            searchCard();
-
-        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(mDrawerList);
         return false;
     }
 
-    public void setBotId(String botsId) {
+    public void setBotId(String botsId,String name) {
+        msgContainer.setVisibility(View.VISIBLE);
         botId = botsId;
-        bindWidget("");
-    }
-
-    public void AccountManagement() {
-        botId = "574c4e563447c94e0c8b4568";
-        bindWidget("Basic Account Management");
-    }
-
-    void RechargeAndPayments() {
-        botId = "574e85ae3447c9561c8b4567";
-        bindWidget("Recharge and Payment");
-    }
-
-    void searchCard() {
-        //appId = "574c4ba63447c94e0c8b4567";
-        botId = "5750230f3447c9e6168b4567";
-        bindWidget("Search Card");
-    }
-
-    void support() {
-        botId = "575530df3447c9810d8b4567";
-        bindWidget("Search Card");
+        chatStatus.setVisibility(View.VISIBLE);
+        FrameLayout f = (FrameLayout) findViewById(R.id.frameLayout);
+        f.setVisibility(View.GONE);
+        chattingTo.setText("Talking To: "+name);
+        getBotInitials();
     }
 
 

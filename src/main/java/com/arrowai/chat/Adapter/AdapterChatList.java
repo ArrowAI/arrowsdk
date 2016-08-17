@@ -214,7 +214,6 @@ public class AdapterChatList extends BaseAdapter {
         TextView cardName, cardDescription;
         LinearLayout msgContainer;
     }
-
     private ViewHolder bindGridvents(ViewHolder viewHolder, JSONObject tempJSON, int position) {
         JSONArray jsonArray = new JSONArray();
         try {
