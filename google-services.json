@@ -1,89 +1,27 @@
 {
   "project_info": {
-    "project_number": "985646087496",
-    "firebase_url": "https://arrowai-main.firebaseio.com",
-    "project_id": "arrowai-main",
-    "storage_bucket": "arrowai-main.appspot.com"
+    "project_number": "811883703055",
+    "firebase_url": "https://arrowai-main-test.firebaseio.com",
+    "project_id": "arrowai-main-test",
+    "storage_bucket": "arrowai-main-test.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:985646087496:android:2ea84efb4f8efaab",
-        "android_client_info": {
-          "package_name": "com.arrowai.one"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "985646087496-qk9nujr47qvmq2mf5dr17sdvmpuslrel.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBzJRyO18EXuYm-MAi1VLduZQPDtvAayPU"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:985646087496:android:c0ab1c1d3e0ea9cf",
-        "android_client_info": {
-          "package_name": "com.arrowai.bhaiyaji"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "985646087496-qk9nujr47qvmq2mf5dr17sdvmpuslrel.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBzJRyO18EXuYm-MAi1VLduZQPDtvAayPU"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:985646087496:android:17e90a3947a2cefb",
+        "mobilesdk_app_id": "1:811883703055:android:7096c610e6e3a67d",
         "android_client_info": {
           "package_name": "com.arrowai.chat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "985646087496-qk9nujr47qvmq2mf5dr17sdvmpuslrel.apps.googleusercontent.com",
+          "client_id": "811883703055-pjui78erh19uorrrgolt3gfm3h47liie.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBzJRyO18EXuYm-MAi1VLduZQPDtvAayPU"
+          "current_key": "AIzaSyDucHw-ccz8Ib2oeyX-DTvO09aueOsoeio"
         }
       ],
       "services": {

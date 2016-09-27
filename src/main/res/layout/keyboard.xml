@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card"
+        >
+        <TextView
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="150dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:textSize="@dimen/pad_10dp"
+            android:background="@drawable/round_corners_left"
+            android:layout_alignParentLeft="true" />
+    </RelativeLayout>
+</LinearLayout>

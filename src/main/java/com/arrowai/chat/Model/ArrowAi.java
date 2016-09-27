@@ -134,7 +134,7 @@ public class ArrowAi {
 
     public void logIn(String uniqueId, JSONObject jsonObject, final android.content.Context ctx) {
         setupAppId(ctx);
-        String url = "https://firebase-arrowai.rhcloud.com/users/add";
+        String url = "https://testfirebase-arrowai.rhcloud.com/users/add";
         JSONObject deviceInfo = new JSONObject();
         deviceInfo = getUserId(ctx);
         JSONObject map = new JSONObject();
@@ -178,7 +178,7 @@ public class ArrowAi {
 
     public void logOut(final android.content.Context ctx, String applicationId) {
         saveSharedPref(ctx, "", "");
-        String url = "https://firebase-arrowai.rhcloud.com/users/add";
+        String url = "https://testfirebase-arrowai.rhcloud.com/users/add";
         JSONObject deviceInfo = new JSONObject();
         deviceInfo = getUserId(ctx);
         JSONObject map = new JSONObject();
@@ -227,7 +227,7 @@ public class ArrowAi {
         getSharedPref(ctx);
         if (bot != null) {
         } else {
-            String url = "http://apps.arrowai.com/api/application.php";
+            String url = "http://testarrowbotcreator.herokuapp.com/api/application.php";
             JSONObject map = new JSONObject();
             try {
                 map.put("appId", applicationId);

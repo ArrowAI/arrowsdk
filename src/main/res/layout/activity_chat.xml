@@ -28,12 +28,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:id="@+id/frameLayout"
+                android:visibility="gone"
                 android:layout_below="@+id/banner"
                 android:layout_alignParentStart="true"
                >
                 <GridView
                     android:paddingTop="5dp"
-
+                    android:visibility="gone"
                     android:paddingLeft="15dp"
                     android:layout_width="match_parent"
                     android:divider="@null"
@@ -41,7 +42,6 @@
                     android:layout_height="505dp"
                     android:id="@+id/gridTop"
                     android:numColumns="4"
-
                     android:verticalSpacing="10dp"
                     >
                 </GridView>
