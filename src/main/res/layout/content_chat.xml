@@ -5,71 +5,117 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#EEF4FE"
-    tools:context="com.arrowai.one.Activity.ChatActivity"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/card_white"
+    tools:context="com.arrowai.chat.Activity.ChatActivity"
+    android:weightSum="2"
     tools:showIn="@layout/activity_chat">
-
     <ListView
-            android:id="@+id/list"
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/suggestion"
+        android:layout_alignParentTop="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:transcriptMode="alwaysScroll" />
+    <org.lucasr.twowayview.TwoWayView
+        android:layout_width="wrap_content"
+        android:id="@+id/suggestion"
+        android:visibility="gone"
+        style="@style/TwoWayView"
+        android:layout_above="@+id/listFooter"
+        android:layout_height="70dp">
+    </org.lucasr.twowayview.TwoWayView>
+    <FrameLayout
+        android:id="@+id/listFooter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/imgLoading"
+            android:layout_width="50dp"
+            android:layout_height="8dp"
+            android:src="@drawable/typing"
+            android:visibility="gone" />
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            >
 
-            android:layout_above="@+id/listFooter"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="5dp"
-            android:layout_alignParentTop="true"
-            android:transcriptMode="alwaysScroll"
-            />
-
-        <FrameLayout
-            android:id="@+id/listFooter"
-            android:layout_width="fill_parent"
-            android:layout_height="72dp"
-            android:layout_alignParentBottom="true"
-
-            android:orientation="horizontal">
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/imgLoading"
-                android:layout_width="50dp"
-                android:layout_height="8dp"
-                android:visibility="gone"
-                android:src="@drawable/typing"
-                />
 
             <LinearLayout
-            android:layout_width="match_parent"
-                android:layout_gravity="bottom"
-                android:background="@drawable/chat_box_container"
-            android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:id="@+id/chattext"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chat_box_container">
 
+                <ImageButton
+                    android:id="@+id/keyBoard"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="40dp"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:src="@drawable/keyboard" />
+                <ImageButton
+                    android:id="@+id/dashBoard"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:src="@drawable/dashboardnew" />
+                <EditText
+                    android:id="@+id/messageInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_white"
+                    android:hint="Write your message..."
+                    android:inputType="textShortMessage"
+                    android:lines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textSize="14dp" />
+                <ImageButton
+                    android:id="@+id/btnSpeak"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="5dp"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:src="@drawable/mic"/>
 
-            <EditText
-                android:id="@+id/messageInput"
-                android:background="@drawable/round_white"
+                <ImageButton
+                    android:id="@+id/sendButton"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="3dp"
+                    android:src="@android:drawable/ic_menu_send" />
+            </LinearLayout>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:textSize="14dp"
-                android:layout_weight="1"
-                android:hint="Write your message..."
-                android:inputType="textShortMessage"
-                android:lines="1"
-                android:singleLine="true"
-                android:textColor="@color/black"/>
+                android:id="@+id/dynamicKeyboard"
+                android:visibility="gone"
+                android:layout_height="200dp"
+                android:layout_below="@+id/chattext">
+                <GridView
+                    android:layout_width="fill_parent"
+                    android:id="@+id/BottomMenu"
+                    android:gravity="center"
+                    android:numColumns="2"
+                    android:layout_height="wrap_content">
+                </GridView>
 
-            <ImageButton
-                android:id="@+id/sendButton"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="5dp"
-                style="?android:attr/borderlessButtonStyle"
-                android:src="@android:drawable/ic_menu_send" />
-
-        </LinearLayout>
-
-        </FrameLayout>
-
-
+            </RelativeLayout>
+        </RelativeLayout>
+    </FrameLayout>
 </RelativeLayout>

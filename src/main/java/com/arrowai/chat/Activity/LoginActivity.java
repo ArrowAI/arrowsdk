@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
         username = prefs.getString("username", "");
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +59,8 @@ public class LoginActivity extends AppCompatActivity {
         link_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+               // startActivity(intent);
             }
         });
 

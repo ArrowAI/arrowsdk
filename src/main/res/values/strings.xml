@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Banking Bot</string>
+    <string name="app_name">ArrowAi Chat</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -16,8 +16,10 @@
     <string name="title_activity_list_chat_details">Details</string>
     <color name="actionbar_text">#ffffff</color>
     <string name="recharge">Recharge payment</string>
-
     <string name="title_activity_splash">SplashActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="speech_prompt">Say something&#8230;</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
+    <string name="tap_on_mic">Tap on mic to speak</string>
 </resources>

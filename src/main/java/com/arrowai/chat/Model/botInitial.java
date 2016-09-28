@@ -14,6 +14,9 @@ public class botInitial {
     boolean sentFromUser;
     long timestamp;
 
+
+
+    String identifierKey;
     public String getApplicationId() {
         return applicationId;
     }
@@ -78,7 +81,7 @@ public class botInitial {
         this.timestamp = timestamp;
     }
 
-    public botInitial(String applicationId, String botId, int start, com.arrowai.chat.Model.sender sender, boolean sentFromServer, boolean sentFromUser, long timestamp) {
+    public botInitial(String applicationId, String botId, int start, com.arrowai.chat.Model.sender sender, boolean sentFromServer, boolean sentFromUser, long timestamp,String identifierKey) {
         this.applicationId = applicationId;
         this.botId = botId;
         this.start = start;
@@ -86,6 +89,23 @@ public class botInitial {
         this.sentFromServer = sentFromServer;
         this.sentFromUser = sentFromUser;
         this.timestamp = timestamp;
+        this.identifierKey=identifierKey;
+    }
+    public botInitial(String applicationId, int start, com.arrowai.chat.Model.sender sender, boolean sentFromServer, boolean sentFromUser, long timestamp,String identifierKey) {
+        this.applicationId = applicationId;
+        this.start = start;
+        this.sender = sender;
+        this.sentFromServer = sentFromServer;
+        this.sentFromUser = sentFromUser;
+        this.timestamp = timestamp;
+        this.identifierKey=identifierKey;
+    }
+    public String getIdentifierKey() {
+        return identifierKey;
+    }
+
+    public void setIdentifierKey(String identifierKey) {
+        this.identifierKey = identifierKey;
     }
 }
 

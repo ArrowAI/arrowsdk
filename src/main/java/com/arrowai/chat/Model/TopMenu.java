@@ -1,16 +1,29 @@
 package com.arrowai.chat.Model;
 
+import org.json.JSONArray;
+
 /**
  * Created by Ravinder on 6/9/2016.
  */
 public class TopMenu {
-    private String botId;
-    private String Image;
+    private JSONArray action;
     private String name;
+    private String botId;
 
-    public TopMenu(String botId, String image, String name) {
-        this.botId = botId;
-        Image = image;
+
+    public JSONArray getAction() {
+        return action;
+    }
+
+    public void setAction(JSONArray action) {
+        this.action = action;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -22,23 +35,9 @@ public class TopMenu {
         this.botId = botId;
     }
 
-    public String getImage() {
-        return Image;
-    }
-
-    public void setImage(String image) {
-        Image = image;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public TopMenu(JSONArray action, String name, String botId) {
+        this.action = action;
         this.name = name;
-    }
-
-    public TopMenu(String botId) {
         this.botId = botId;
     }
 }

@@ -175,16 +175,19 @@ public class AdapterChatList extends BaseAdapter {
             convertView = layoutinflater.inflate(R.layout.list_options, parent, false);
             listViewHolder.listOptions = (ListView) convertView.findViewById(R.id.listOptions);
             listViewHolder = bindListEvents(listViewHolder, tempJSON, position);
-        } else if (from.equals(mUsername.toLowerCase())) {
+        } else if (from.equals("sentfromserver")&& !listStorage.get(position).getMessage().trim().equals("")) {
+            convertView = layoutinflater.inflate(R.layout.chat_message_left, parent, false);
+        } else if (from.equals("sentfromrep") && !listStorage.get(position).getMessage().trim().equals("")) {
             convertView = layoutinflater.inflate(R.layout.chat_message_right, parent, false);
-        } else if (from.equals(mUsername.toLowerCase())) {
+        }
+        else if (from.equals("sentfromuser") && !listStorage.get(position).getMessage().trim().equals("")) {
             convertView = layoutinflater.inflate(R.layout.chat_message_right, parent, false);
-        } else {
+        }else  {
             convertView = layoutinflater.inflate(R.layout.chat_message_left, parent, false);
         }
+
         if (bindDefaultEvents) {
             listViewHolder.textdate = (TextView) convertView.findViewById(R.id.textdate);
-            listViewHolder.msgContainer = (LinearLayout) convertView.findViewById(R.id.Lbyother);
             listViewHolder.msgContainer = (LinearLayout) convertView.findViewById(R.id.Lbyother);
             listViewHolder.textMessage = (TextView) convertView.findViewById(R.id.textMessage);
             convertView.setTag(listViewHolder);
@@ -197,10 +200,11 @@ public class AdapterChatList extends BaseAdapter {
                 listViewHolder.textdate.setVisibility(View.GONE);
             }
             listViewHolder.textMessage.setText(listStorage.get(position).getMessage());
-
         }
         return convertView;
     }
+
+
 
     static class ViewHolder {
         TextView textdate;
@@ -214,7 +218,6 @@ public class AdapterChatList extends BaseAdapter {
         TextView cardName, cardDescription;
         LinearLayout msgContainer;
     }
-
     private ViewHolder bindGridvents(ViewHolder viewHolder, JSONObject tempJSON, int position) {
         JSONArray jsonArray = new JSONArray();
         try {

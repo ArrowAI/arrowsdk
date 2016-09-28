@@ -1,36 +1,47 @@
 package com.arrowai.chat.Activity;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arrowai.chat.Adapter.AdapterChatList;
 import com.arrowai.chat.Adapter.SideMenuAdaper;
+import com.arrowai.chat.Adapter.SuggestionAdapter;
 import com.arrowai.chat.Adapter.TopMenuAdapter;
-import com.arrowai.chat.Model.AppConfiguration;
+import com.arrowai.chat.Model.ArrowAi;
 import com.arrowai.chat.Model.IntitialResponse;
 import com.arrowai.chat.Model.NavItem;
 import com.arrowai.chat.Model.RequestParams;
@@ -41,6 +52,7 @@ import com.arrowai.chat.Model.message;
 import com.arrowai.chat.Model.messageData;
 import com.arrowai.chat.Model.postback;
 import com.arrowai.chat.Model.sender;
+import com.arrowai.chat.Model.suggestions;
 import com.arrowai.chat.R;
 import com.arrowai.chat.SQliteData.ChatListData;
 import com.arrowai.chat.SQliteData.SQLiteAdapter;
@@ -48,26 +60,30 @@ import com.arrowai.chat.util.CommonUtil;
 import com.firebase.client.Firebase;
 import com.firebase.client.ValueEventListener;
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.lucasr.twowayview.TwoWayView;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 import pl.droidsonroids.gif.GifImageView;
-
-public class ChatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ChatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TextToSpeech.OnInitListener {
     private String email, mobile;
     private ValueEventListener mConnectedListener;
     private AdapterChatList mChatListAdapter;
@@ -112,14 +128,30 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private Firebase mFirebaseRef;
     String bot;
     String sideMenus;
+    Boolean showSideMenu;
+    private ImageButton btnSpeak;
+    private final int REQ_CODE_SPEECH_INPUT = 100;
+    private TextToSpeech textToSpeech;
+    private TextView chattingTo;
+    private FrameLayout chatStatus;
+    TopMenuAdapter bottomMenuAdapter;
+    List<TopMenu> topMenuList;
+    List<suggestions> suggestionArrary;
+    SuggestionAdapter suggestionAdapter;
+
+    TopMenu topMenu;
+    suggestions suggestions;
+    private GridView bottomMenu;
+    ImageButton keyBoard, dashBoard;
+    RelativeLayout dynamicKeyboard;
+    private TwoWayView towWaySuggestion ;
+    private boolean disableTyping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CookieHandler.setDefault(new CookieManager());
         setContentView(R.layout.activity_chat);
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setOnClickListener(
@@ -131,17 +163,77 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     }
                 }
         );
-        AppConfiguration appConfiguration = new AppConfiguration();
-
+        ArrowAi appConfiguration = new ArrowAi();
         menuItem = new ArrayList<>();
-        topMenueGrid = (GridView) findViewById(R.id.gridTop);
+        keyBoard = (ImageButton) findViewById(R.id.keyBoard);
+        dashBoard = (ImageButton) findViewById(R.id.dashBoard);
+        bottomMenu = (GridView) findViewById(R.id.BottomMenu);
+        dynamicKeyboard = (RelativeLayout) findViewById(R.id.dynamicKeyboard);
+        inputText = (EditText) findViewById(R.id.messageInput);
+        towWaySuggestion=(TwoWayView) findViewById(R.id.suggestion);
+        inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    String message = inputText.getText().toString();
+                    sendMessage(message, false, null);
+                    inputText.setText("");
+                }
+                return true;
+            }
+        });
+        inputText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dynamicKeyboard.setVisibility(View.GONE);
+                dashBoard.setVisibility(View.VISIBLE);
+                keyBoard.setVisibility(View.GONE);
+            }
+        });
+        inputText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (inputText.length() == 0) {
+                    dashBoard.setVisibility(View.VISIBLE);
+
+                } else {
+                    keyBoard.setVisibility(View.GONE);
+                    dynamicKeyboard.setVisibility(View.GONE);
+                    dashBoard.setVisibility(View.VISIBLE);
+
+                }
+
+            }
+        });
+        keyBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard();
+            }
+        });
+        dashBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showKeybord();
+
+            }
+        });
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        getSupportActionBar().setIcon(R.drawable.home);
+
+        //getSupportActionBar().setIcon(R.drawable.home);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -165,14 +257,10 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         } catch (Exception e) {
 
         }
-        BindTopMenu();
         addDrawerItems();
-
         Random r = new Random();
         Intent intent = getIntent();
-        botName = "Bhaiya Ji";
-
-        getSupportActionBar().setTitle("Bhaiya Ji");
+        getSupportActionBar().setTitle(botName);
         //bindList();
         inputText = (EditText) findViewById(R.id.messageInput);
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -186,32 +274,94 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }
         });
+        chatStatus = (FrameLayout) findViewById(R.id.chatStatus);
+        chattingTo = (TextView) findViewById(R.id.chattingTo);
+        inputText = (EditText) findViewById(R.id.messageInput);
+        inputText.setFocusableInTouchMode(false);
+        btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+        inputText.setOnTouchListener(new View.OnTouchListener(){
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                // TODO Auto-generated method stub
+                inputText.setFocusableInTouchMode(true);
+                inputText.requestFocus() ;
+                return false;
+            }});
+        btnSpeak.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                promptSpeechInput();
+            }
+        });
+        inputText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (inputText.length() == 0) {
+                    btnSpeak.setVisibility(View.VISIBLE);
+                    findViewById(R.id.sendButton).setVisibility(View.GONE);
+                } else {
+                    btnSpeak.setVisibility(View.GONE);
+                    findViewById(R.id.sendButton).setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+        inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    String message = inputText.getText().toString();
+                    sendMessage(message, false, new JSONObject());
+                    inputText.setText("");
+                }
+                return true;
+            }
+        });
         findViewById(R.id.sendButton).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String message = inputText.getText().toString();
                         sendMessage(message, false, null);
+                        towWaySuggestion.setVisibility(View.GONE);
                         inputText.setText("");
                     }
                 });
-
         if (chatList.size() <= 0) {
             //getBotInitials();
         }
-        mChatListAdapter = new AdapterChatList(ChatActivity.this, chatList, mUsername);
+
+        /**
+         * Showing google speech input dialog
+         */
+        mChatListAdapter = new
+                AdapterChatList(ChatActivity.this, chatList, mUsername);
         listViewChat.setAdapter(mChatListAdapter);
         database = FirebaseDatabase.getInstance();
+        bindMenu();
+
         myRef = database.getReference("outGoingMessage/" + appId + "/users/" + userId + "/messages");
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String str = s;
                 JSONObject responseObj = new JSONObject();
                 JSONObject messageData = new JSONObject();
                 JSONObject message = new JSONObject();
+                JSONObject sender = new JSONObject();
                 dataSnapshot.getChildren();
-                // RequestParams response = dataSnapshot.getValue(RequestParams.class);
                 Gson gson = new Gson();
                 String responseJson = gson.toJson(dataSnapshot.getValue());
                 try {
@@ -226,55 +376,271 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                         messageData = responseObj.getJSONObject("messageData");
                         String from = "";
                         String chatText = "";
+                        String timestamp;
+                        String senderId = "";
                         Chat chat = null;
-                        from = mUsername;
+                        if (responseObj.has("sentFromServer")) {
+                            if (responseObj.getBoolean("sentFromServer") == true) {
+                                from = "sentFromServer";
+                            }
+                        }
+                        if (responseObj.has("sentFromUser")) {
+                            if (responseObj.getBoolean("sentFromUser") == true ) {
+                                from = "sentFromUser";
+                            }
+                        }
+                        if (responseObj.has("sentFromRep")) {
+                            if (responseObj.getBoolean("sentFromRep") == true) {
+
+                                from = "sentFromRep";
+                            }
+                        }
                         if (messageData.has("message")) {
                             message = messageData.getJSONObject("message");
+                            sender = messageData.getJSONObject("sender");
                             chatText = message.getString("text");
+                            senderId = sender.getString("id");
+                            timestamp = responseObj.getString("timestamp");
                             if (chatText != null && !chatText.trim().equals("")) {
-                                chat = new Chat(mUsername, botId, chatText, from, getTime(), null, "");
+                                chat = new Chat(mUsername, senderId, chatText, from, timestamp, null, mUsername);
                                 chatList.add(chat);
                             }
                         }
                     } catch (Throwable t) {
                     }
+                }
+                if (responseObj.has("keyboard")) {
+                    try {
+                        JSONObject keyboard = new JSONObject();
+                        keyboard = responseObj.getJSONObject("keyboard");
+                        convertStartMessageToKeyboard(keyboard);
+                    } catch (Exception e) {
+                        Log.d("Error", e.toString());
+                    }
                 } else {
-                    if (dataSnapshot.hasChild("start")) {
-                        String startVal = dataSnapshot.child("start").getValue().toString();
-                        if (startVal == "1") {
-                            return;
-                        } else {
-                            IntitialResponse res = dataSnapshot.getValue(IntitialResponse.class);
-                            Gson gso = new Gson();
-                            String resJson = gso.toJson(res);
-                            bindInitialGreatings(resJson);
+                    if (responseObj.has("start")) {
+                        try {
+                            String startVal = responseObj.getString("start");
+                            if (startVal == "1") {
+                                return;
+                            } else {
+                                String IntitialResponse = gson.toJson(dataSnapshot.getValue());
+                                bindInitialGreatings(IntitialResponse);
+                            }
+                        } catch (Exception ex) {
                         }
                     }
                 }
+                //refresh adapter
                 mChatListAdapter.notifyDataSetChanged();
                 setFocusLastElem();
             }
 
             @Override
-            public void onChildChanged(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
-
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             }
 
             @Override
-            public void onChildRemoved(com.google.firebase.database.DataSnapshot dataSnapshot) {
-
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
             }
 
             @Override
-            public void onChildMoved(com.google.firebase.database.DataSnapshot dataSnapshot, String s) {
-
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
+        View view = ChatActivity.this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(ChatActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+        }
+    }
+
+    void bindMenu() {
+
+        sender s = new sender(userId);
+        myRef = database.getReference("inComingMessage");
+        botInitial star = new botInitial(appId, 1, s, false, true, Long.valueOf(getTime()), null);
+        myRef.push().setValue(star);
+
+    }
+    private void getBotInitials(boolean setBotid, boolean senStartMessage, boolean deletebotId, String botIdt) {
+        sender s = new sender(userId);
+        myRef = database.getReference("inComingMessage");
+        if (setBotid && senStartMessage) {
+            botId = botIdt;
+            botInitial star = new botInitial(appId, botId, 1, s, false, true, Long.valueOf(getTime()), null);
+            myRef.push().setValue(star);
+        } else if (senStartMessage && !setBotid && !deletebotId) {
+            botInitial star = new botInitial(appId, 1, s, false, true, Long.valueOf(getTime()), null);
+            myRef.push().setValue(star);
+        } else if (deletebotId && senStartMessage) {
+            botInitial star = new botInitial(appId, 1, s, false, true, Long.valueOf(getTime()), null);
+            myRef.push().setValue(star);
+        }
+    }
+    public void setBotId(JSONArray action, String botName, String botId) {
+        towWaySuggestion.setVisibility(View.GONE);
+        boolean setbotId = false;
+        boolean sendStartMessage = false;
+        boolean deletebotId = false;
+        boolean sendText = false;
+        boolean hideKeyboard = false;
+        for (int i = 0; i < action.length(); i++) {
+            try {
+                if (action.getString(i).equals("setBotId")) {
+                    setbotId = true;
+                }
+                if (action.getString(i).equals("sendStartMessage")) {
+                    sendStartMessage = true;
+                }
+                if (action.getString(i).equals("deleteBotId")) {
+                    deletebotId = true;
+                }
+                if (action.getString(i).equals("sendText")) {
+                    sendText = true;
+                    hideKeyboard = true;
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+        if (sendText) {
+            sendMessage(botName, false, null);
+            hideKeyboard();
+        } else {
+            getBotInitials(setbotId, sendStartMessage, deletebotId, botId);
+            chat = new Chat(mUsername, botId, botName, "sentFromUser", getTime(), null, "");
+            chatList.add(chat);
+            mChatListAdapter.notifyDataSetChanged();
+            setFocusLastElem();
+        }
+    }
+    public void showSuggestions(JSONArray recommendations) {
+        JSONArray suggestionsObj = new JSONArray();
+        JSONArray recommendationArray = new JSONArray();
+        try {
+            if (recommendations.length()!=0 ) {
+                towWaySuggestion.setVisibility(View.VISIBLE);
+                suggestionArrary = new ArrayList<suggestions>();
+                recommendationArray = recommendations;
+                for (int i = 0; i < recommendationArray.length(); i++) {
+                    suggestions = new suggestions(recommendationArray.get(i).toString());
+                    suggestionArrary.add(suggestions);
+                }
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(ChatActivity.this, e.toString(),
+                    Toast.LENGTH_LONG).show();
+        }
+
+        suggestionAdapter = new SuggestionAdapter(ChatActivity.this, suggestionArrary);
+        towWaySuggestion.setAdapter(suggestionAdapter);
+        suggestionAdapter.notifyDataSetChanged();
+
+    }
+
+    public void convertStartMessageToKeyboard(JSONObject keyboard) {
+        JSONArray option = new JSONArray();
+        JSONArray action = new JSONArray();
+        try {
+
+                if(keyboard.has("disableTyping"))
+                {
+                    disableTyping=keyboard.getBoolean("disableTyping");
+                }
+                if(disableTyping)
+                {
+                    inputText.setEnabled(false);
+                }
+                if(!disableTyping)
+                {
+                    inputText.setEnabled(true);
+                }
+            if (keyboard.has("options")) {
+
+                topMenuList = new ArrayList<TopMenu>();
+                option = keyboard.getJSONArray("options");
+                for (int i = 0; i < option.length(); i++) {
+                    JSONObject jsonObject = (JSONObject) option.get(i);
+                    action = jsonObject.getJSONArray("action");
+                    String botName = jsonObject.getString("text");
+                    String botId = "";
+                    if (jsonObject.has("botId")) {
+                        botId = jsonObject.getString("botId");
+                    }
+                    topMenu = new TopMenu(action, botName, botId);
+                    topMenuList.add(topMenu);
+                }
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(ChatActivity.this, e.toString(),
+                    Toast.LENGTH_LONG).show();
+        }
+
+        bottomMenuAdapter = new TopMenuAdapter(ChatActivity.this, topMenuList);
+        bottomMenu.setAdapter(bottomMenuAdapter);
+        bottomMenuAdapter.notifyDataSetChanged();
+        showKeybord();
+    }
+
+    public void showKeybord() {
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(ChatActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        dashBoard.setVisibility(View.GONE);
+        dynamicKeyboard.setVisibility(View.VISIBLE);
+        keyBoard.setVisibility(View.VISIBLE);
+    }
+
+    public void hideKeyboard() {
+        keyBoard.setVisibility(View.GONE);
+        dynamicKeyboard.setVisibility(View.GONE);
+        dashBoard.setVisibility(View.VISIBLE);
+        InputMethodManager imm = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
+        }
+    }
+
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                getString(R.string.speech_prompt));
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.speech_not_supported),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Receiving speech input
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    inputText.setText(result.get(0));
+                }
+                break;
+            }
+        }
     }
 
     public void sendMessage(String chatText, final boolean botResend, JSONObject payloadParam) {
@@ -282,7 +648,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             return;
         }
         try {
-
             if (payloadParam != null) {
                 String variable = "", value = "";
                 buttonPayload payload = new buttonPayload();
@@ -312,8 +677,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         } catch (Exception e) {
 
         }
-
-
     }
 
     void bindInitialGreatings(String response) {
@@ -349,10 +712,30 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     void processResponse(String response) {
         try {
             JSONObject responseJson = new JSONObject(response);
-            String callAgain = "", text = "", noResponse = "";
+
+            String callAgain = "", text = "", noResponse = "",from="";
             attachmentJson = null;
+            if (responseJson.has("sentFromServer")) {
+                if (responseJson.getBoolean("sentFromServer") == true) {
+                    from = "sentFromServer";
+                }
+            }
+            if (responseJson.has("sentFromUser")) {
+                if (responseJson.getBoolean("sentFromUser") == true ) {
+                    from = "sentFromUser";
+                }
+            }
+            if (responseJson.has("sentFromRep")) {
+                if (responseJson.getBoolean("sentFromRep") == true) {
+
+                    from = "sentFromRep";
+                }
+            }
             if (responseJson.has("message")) {
                 JSONObject messageJson = responseJson.getJSONObject("message");
+                if(messageJson.has("recommendations")) {
+                    showSuggestions(messageJson.getJSONArray("recommendations"));
+                }
                 if (messageJson.has("callAgain")) {
                     callAgain = messageJson.getString("callAgain");
                 }
@@ -367,7 +750,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     attachmentJson = messageJson.getJSONObject("attachment");
                 }
                 if (!noResponse.toLowerCase().equals("true")) {
-                    chat = new Chat(mUsername, botId, text, botName, getTime(), attachmentJson, "");
+                    chat = new Chat(mUsername, botId, text, from, getTime(), attachmentJson, "");
                     chatList.add(chat);
                 }
                 if (callAgain != null && callAgain.toLowerCase().equals("true")) {
@@ -375,7 +758,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     RelativeLayout lytSuggestion = (RelativeLayout) findViewById(R.id.lytSuggestion);
                     if (messageJson.has("suggestion")) {
-
                         String suggestion = messageJson.getString("suggestion");
                         lytSuggestion.setVisibility(View.VISIBLE);
                         TextView textSuggestionMessage = (TextView) findViewById(R.id.textSuggestionMessage);
@@ -394,11 +776,10 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
     private void getBotInitials() {
         sender s = new sender(userId);
-        botInitial star = new botInitial(appId, botId, 1, s, false, true, Long.valueOf(getTime()));
+        botInitial star = new botInitial(appId, botId, 1, s, false, true, Long.valueOf(getTime()), null);
         myRef = database.getReference("inComingMessage");
         myRef.push().setValue(star);
     }
-
 
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
@@ -414,9 +795,14 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
+        if (showSideMenu) {
+            mDrawerToggle.setDrawerIndicatorEnabled(true);
+            mDrawerLayout.setDrawerListener(mDrawerToggle);
+        } else {
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
 
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
     private void addDrawerItems() {
@@ -474,6 +860,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("username", name);
+        editor.putString("userId", name);
         editor.commit();
     }
 
@@ -482,7 +869,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        menuItems = menu.findItem(R.id.action_arrowup);
+
         return true;
     }
 
@@ -495,23 +882,11 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             listViewChat.setEmptyView(new View(ChatActivity.this));
         }
         if (id == R.id.action_logout) {
-            saveSharedPref("");
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            SharedPreferences settings = getApplicationContext().getSharedPreferences("ChatShellPrefs", Context.MODE_PRIVATE);
+            settings.edit().clear().commit();
+            finish();
             return true;
         }
-        if (id == R.id.action_arrowup) {
-            FrameLayout f = (FrameLayout) findViewById(R.id.frameLayout);
-            if (f.getVisibility() == View.VISIBLE) {
-                f.setVisibility(View.GONE);
-                menuItems.setIcon(R.drawable.arrowup);
-            } else {
-                f.setVisibility(View.VISIBLE);
-                menuItems.setIcon(R.drawable.arrowdown);
-            }
-        }
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -535,13 +910,13 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         bot = prefs.getString("bots", null);
         sideMenus = prefs.getString("sideMenu", null);
         appId = prefs.getString("appId", null);
+        showSideMenu = prefs.getBoolean("showMenu", false);
+        botName = prefs.getString("appName", null);
         if (mUsername == null) {
             Random r = new Random();
             prefs.edit().putString("username", mUsername).commit();
         }
     }
-
-
 
     private void bindList() {
 //    chatList.clear();
@@ -576,7 +951,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         sqLiteAdapter.close();
         setFocusLastElem();
     }
-
     private void setFocusLastElem() {
         listViewChat.setSelection(chatList.size() - 1);
 
@@ -591,37 +965,15 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         if (chatList != null && chatList.size() > 0) {
             chat = chatList.get(chatList.size() - 1);
         }
-
         if (chat != null && chat.getType().equals("card_detail")) {
             chatList.remove(chatList.size() - 1);
         }
 
         chat = new Chat(cardName, cardDescription, "", "", "", null, "card_detail");
         chatList.add(chat);
-
         mChatListAdapter = new AdapterChatList(ChatActivity.this, chatList, mUsername);
         listViewChat.setAdapter(mChatListAdapter);
-
         setFocusLastElem();
-    }
-
-    public void BindTopMenu() {
-
-        for (int i = 0; i < bots.length(); i++) {
-            try {
-                JSONObject jsonObject = (JSONObject) bots.get(i);
-                botId = jsonObject.getString("bot_id");
-                //botImage = jsonObject.getString("image");
-                title = jsonObject.getString("bot_text");
-                menu = new TopMenu(botId, botImage, title);
-                menuArrayList.add(menu);
-            } catch (Exception e) {
-            }
-        }
-        topMenuAdapter = new TopMenuAdapter(ChatActivity.this, menuArrayList);
-        topMenueGrid.setAdapter(topMenuAdapter);
-        topMenuAdapter.notifyDataSetChanged();
-
     }
 
     private String getTime() {
@@ -652,59 +1004,28 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.accountManagement) {
-            AccountManagement();
-
-        } else if (id == R.id.transferMoney) {
-            RechargeAndPayments();
-
-        } else if (id == R.id.search_card) {
-            searchCard();
-
-        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(mDrawerList);
         return false;
     }
 
-    public void setBotId(String botsId) {
+    public void setBotId(String botsId, String name) {
         botId = botsId;
-        bindWidget("");
-    }
-
-    public void AccountManagement() {
-        botId = "574c4e563447c94e0c8b4568";
-        bindWidget("Basic Account Management");
-    }
-
-    void RechargeAndPayments() {
-        botId = "574e85ae3447c9561c8b4567";
-        bindWidget("Recharge and Payment");
-    }
-
-    void searchCard() {
-        //appId = "574c4ba63447c94e0c8b4567";
-        botId = "5750230f3447c9e6168b4567";
-        bindWidget("Search Card");
-    }
-
-    void support() {
-        botId = "575530df3447c9810d8b4567";
-        bindWidget("Search Card");
+        chatStatus.setVisibility(View.VISIBLE);
+        FrameLayout f = (FrameLayout) findViewById(R.id.frameLayout);
+        f.setVisibility(View.GONE);
+        chattingTo.setText("Talking To: " + name);
+        getBotInitials();
     }
 
 
     public void bindWidget(String type) {
-       getBotInitials();
+        getBotInitials();
     }
 
     public int getTotalHeightofListView(ListView listView) {
-
         ListAdapter mAdapter = listView.getAdapter();
-
         int totalHeight = 0;
-
         for (int i = 0; i < mAdapter.getCount(); i++) {
             View mView = mAdapter.getView(i, null, listView);
 
@@ -715,7 +1036,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
             totalHeight += mView.getMeasuredHeight();
             Log.w("HEIGHT" + i, String.valueOf(totalHeight));
-
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight
@@ -723,7 +1043,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         listView.setLayoutParams(params);
         listView.requestLayout();
         return totalHeight;
+    }
+    @Override
+    public void onInit(int status) {
 
     }
-
 }

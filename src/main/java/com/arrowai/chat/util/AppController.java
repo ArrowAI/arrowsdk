@@ -7,9 +7,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-public class AppController extends Application
-{
-    public static final String TAG = AppController.class.getSimpleName();
+public class AppController extends Application {
+    public static final String TAG ="com.arrowai.chat";
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static AppController mInstance;
