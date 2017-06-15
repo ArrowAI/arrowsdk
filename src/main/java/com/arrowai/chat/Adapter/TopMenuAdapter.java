@@ -14,7 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.arrowai.chat.Activity.ChatActivity;
-
+import com.arrowai.chat.Activity.HomeActivity;
 import com.arrowai.chat.Model.TopMenu;
 import com.arrowai.chat.Model.VolleySingleton;
 import com.arrowai.chat.R;
@@ -39,12 +39,17 @@ public class TopMenuAdapter extends BaseAdapter {
         this.imageview = imageview;
         layoutinflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         listStorage = customizedListView;
-
     }
 
     @Override
     public int getCount() {
-        return listStorage.size();
+        try {
+            return listStorage.size();
+        }
+        catch (Exception e)
+        {
+            return listStorage.size();
+        }
     }
 
     @Override
@@ -83,7 +88,7 @@ public class TopMenuAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (context instanceof ChatActivity) {
-                    ((ChatActivity) context).setBotId(listStorage.get(position).getAction(),listStorage.get(position).getName(),listStorage.get(position).getBotId());
+                    ((ChatActivity) context).setBotId(listStorage.get(position).getAction(),listStorage.get(position).getName(),listStorage.get(position).getBotId(),listStorage.get(position).getPayload());
                 }
             }
         });

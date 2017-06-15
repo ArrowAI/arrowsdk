@@ -11,10 +11,8 @@ public class ButtonTemplate  {
     private String title;
     private String message;
     private JSONObject payload;
-    public ButtonTemplate( String title,  JSONObject payload) {
-        this.title = title;
-        this.payload = payload;
-    }
+    private String url;
+
     public String getType() {
         return type;
     }
@@ -45,5 +43,21 @@ public class ButtonTemplate  {
 
     public void setPayload(JSONObject payload) {
         this.payload = payload;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public ButtonTemplate(String type, String title, String message, JSONObject payload, String url) {
+        this.type = type;
+        this.title = title;
+        this.message = message;
+        this.payload = payload;
+        this.url = url;
     }
 }

@@ -6,13 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import  com.arrowai.chat.Activity.ChatActivity;
-import  com.arrowai.chat.Activity.HomeActivity;
-import  com.arrowai.chat.Model.ButtonTemplate;
-import  com.arrowai.chat.R;
+import com.android.volley.toolbox.NetworkImageView;
+import com.arrowai.chat.Activity.ChatActivity;
+import com.arrowai.chat.Activity.HomeActivity;
+import com.arrowai.chat.Model.ButtonTemplate;
+import com.arrowai.chat.Model.Confirmation;
+import com.arrowai.chat.R;
 
 import java.util.List;
 
@@ -64,12 +68,12 @@ public class ButtonTemplateAdapter extends BaseAdapter {
         listViewHolder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ChatActivity) context).sendMessage("", true, listStorage.get(position).getPayload());
+                ((ChatActivity) context).sendMessage(listStorage.get(position).getTitle(), true, listStorage.get(position).getPayload(),false,listStorage.get(position).getType(),listStorage.get(position).getUrl());
             }
         });
         return convertView;
     }
     static class ViewHolder {
-        Button button;
+        TextView button;
     }
 }

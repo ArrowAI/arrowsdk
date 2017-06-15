@@ -22,7 +22,7 @@ import java.util.List;
 
 public class SuggestionAdapter extends BaseAdapter {
     private LayoutInflater layoutinflater;
-    SuggestionAdapter.ViewHolder listViewHolder;
+    ViewHolder listViewHolder;
     private List<suggestions> listStorage;
     private Context context;
 
@@ -52,14 +52,14 @@ public class SuggestionAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            listViewHolder = new SuggestionAdapter.ViewHolder();
+            listViewHolder = new ViewHolder();
             convertView = layoutinflater.inflate(R.layout.suggesionlayout, parent, false);
             listViewHolder.button = (TextView) convertView.findViewById(R.id.button);
             listViewHolder.layout = (RelativeLayout) convertView.findViewById(R.id.card);
 
             convertView.setTag(listViewHolder);
         } else {
-            listViewHolder = (SuggestionAdapter.ViewHolder) convertView.getTag();
+            listViewHolder = (ViewHolder) convertView.getTag();
         }
         listViewHolder.button.setText(listStorage.get(position).getText());
 
@@ -67,7 +67,7 @@ public class SuggestionAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (context instanceof ChatActivity) {
-                    ((ChatActivity) context).sendMessage(listStorage.get(position).getText(), false, null);
+                    ((ChatActivity) context).sendMessage(listStorage.get(position).getText(), false, null,false,"","");
                 }
             }
         });

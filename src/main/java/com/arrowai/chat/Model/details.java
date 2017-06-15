@@ -1,25 +1,27 @@
 package com.arrowai.chat.Model;
 
 /**
- * Created by Ravinder on 6/29/2016.
+ * Created by rajmendra on 22/06/16.
  */
-public class details {
-    private String type;
-    private String title;
-    private String message;
-    private buttonPayload payload;
-    private variableType variableType;
+public class Details {
+    payload payload;
 
-    // Required default constructor for Firebase object mapping
-    @SuppressWarnings("unused")
-    public details() {
+    public String getMessage() {
+        return message;
     }
-    public details( String message, buttonPayload payload,String type, String title,com.arrowai.chat.Model.variableType variableType) {
-        this.type = type;
-        this.title = title;
+
+    public void setMessage(String message) {
         this.message = message;
+    }
+
+    String message;
+
+    public com.arrowai.chat.Model.payload getPayload() {
+        return payload;
+    }
+
+    public void setPayload(com.arrowai.chat.Model.payload payload) {
         this.payload = payload;
-        this.variableType = variableType;
     }
 
     public String getType() {
@@ -30,6 +32,20 @@ public class details {
         this.type = type;
     }
 
+    String title;
+    String type;
+    VariableType variableType;
+
+    public VariableType getVariableType() {
+        return variableType;
+    }
+
+    public void setVariableType(VariableType variableType) {
+        this.variableType = variableType;
+    }
+
+
+
     public String getTitle() {
         return title;
     }
@@ -38,27 +54,10 @@ public class details {
         this.title = title;
     }
 
-    public String getMessage() {
-        return message;
+
+    // Required default constructor for Firebase object mapping
+    @SuppressWarnings("unused")
+    private Details() {
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public buttonPayload getPayload() {
-        return payload;
-    }
-
-    public void setPayload(buttonPayload payload) {
-        this.payload = payload;
-    }
-
-    public com.arrowai.chat.Model.variableType getVariableType() {
-        return variableType;
-    }
-
-    public void setVariableType(com.arrowai.chat.Model.variableType variableType) {
-        this.variableType = variableType;
-    }
 }

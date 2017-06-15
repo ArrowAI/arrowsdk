@@ -6,21 +6,28 @@ package com.arrowai.chat.Model;
 public class RequestParams {
     String botId;
     String applicationId;
-    payLoadId payload;
-    buttonPayload payloadPram;
+    String payload;
+    boolean EndExistingFlow;
 
-    public com.arrowai.chat.Model.payLoadId getPayload() {
-        return payload;
-    }
 
-    public void setPayload(com.arrowai.chat.Model.payLoadId payload) {
-        this.payload = payload;
-    }
 
-    public RequestParams(String botId, String applicationId, payLoadId payload, messageData messageData, message message, com.arrowai.chat.Model.sender sender, boolean sentFromServer, boolean sentFromUser, long timestamp) {
+    String identifierKey;
+
+    public RequestParams(String botId, String applicationId, String payload, messageData messageData, message message, com.arrowai.chat.Model.sender sender, boolean sentFromServer, boolean sentFromUser, long timestamp) {
         this.botId = botId;
         this.applicationId = applicationId;
         this.payload = payload;
+        this.messageData = messageData;
+        this.message = message;
+        this.sender = sender;
+        this.sentFromServer = sentFromServer;
+        this.sentFromUser = sentFromUser;
+        this.timestamp = timestamp;
+        this.identifierKey=identifierKey;
+
+    }
+    public RequestParams(messageData messageData, message message, com.arrowai.chat.Model.sender sender, boolean sentFromServer, boolean sentFromUser, long timestamp) {
+
         this.messageData = messageData;
         this.message = message;
         this.sender = sender;
@@ -84,6 +91,13 @@ public class RequestParams {
         this.sentFromServer = sentFromServer;
     }
 
+    public String getPayload() {
+        return payload;
+    }
+
+    public void setPayload(String payload) {
+        this.payload = payload;
+    }
 
     public com.arrowai.chat.Model.messageData getMessageData() {
         return messageData;
@@ -100,9 +114,23 @@ public class RequestParams {
     public void setApplicationId(String applicationId) {
         this.applicationId = applicationId;
     }
+    public String getIdentifierKey() {
+        return identifierKey;
+    }
 
+    public void setIdentifierKey(String identifierKey) {
+        this.identifierKey = identifierKey;
+    }
     // Required default constructor for Firebase object mapping
     @SuppressWarnings("unused")
     private RequestParams() {
+    }
+
+    public boolean isEndExistingFlow() {
+        return EndExistingFlow;
+    }
+
+    public void setEndExistingFlow(boolean endExistingFlow) {
+        EndExistingFlow = endExistingFlow;
     }
 }

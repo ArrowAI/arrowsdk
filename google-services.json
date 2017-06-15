@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "811883703055",
-    "firebase_url": "https://arrowai-main-test.firebaseio.com",
-    "project_id": "arrowai-main-test",
-    "storage_bucket": "arrowai-main-test.appspot.com"
+    "project_number": "1060626291067",
+    "firebase_url": "https://arroaaimainlocal.firebaseio.com",
+    "project_id": "arroaaimainlocal",
+    "storage_bucket": "arroaaimainlocal.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:811883703055:android:7096c610e6e3a67d",
+        "mobilesdk_app_id": "1:1060626291067:android:7096c610e6e3a67d",
         "android_client_info": {
           "package_name": "com.arrowai.chat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "811883703055-pjui78erh19uorrrgolt3gfm3h47liie.apps.googleusercontent.com",
+          "client_id": "1060626291067-p15cmrt643slqmeq2uqhu89i03h8oln4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDucHw-ccz8Ib2oeyX-DTvO09aueOsoeio"
+          "current_key": "AIzaSyCa31CPOeXIFOcCmBW-cqk9vv0HQbUJLqY"
         }
       ],
       "services": {

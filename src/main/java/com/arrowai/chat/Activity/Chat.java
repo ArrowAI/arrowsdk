@@ -42,18 +42,18 @@ public class Chat
         this.message = message;
     }
 
-    public String getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 
     private String from;
     private String chatuser;
     private String chatbot;
-    private String time;
+    private Long time;
 
 
     public JSONObject getAttachmentJson() {
@@ -78,7 +78,7 @@ public class Chat
         this.type = type;
     }
 
-    public  Chat(String chatuser, String chatbot, String message, String from, String time, JSONObject attachmentJson,String type)
+    public  Chat(String chatuser, String chatbot, String message, String from, Long time, JSONObject attachmentJson,String type)
     {
         this.message = message;
         this.from = from;

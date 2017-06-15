@@ -2,21 +2,42 @@ package com.arrowai.chat.Model;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ravinder on 6/7/2016.
  */
-public class confirmation {
+public class Confirmation {
 
     private String type;
     private String title;
     private String message;
     private JSONObject payload;
-    ArrayList<actionButton> actionButton;
-    ArrayList<details> details;
 
+    public List<ActionButton> getActionButton() {
+        return actionButton;
+    }
 
+    public void setActionButton(List<ActionButton> actionButton) {
+        this.actionButton = actionButton;
+    }
+
+    public List<Details> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<Details> details) {
+        this.details = details;
+    }
+
+    private List<ActionButton> actionButton;
+    private List<Details> details;
+    public Confirmation(String type, String title, String message, JSONObject payload) {
+        this.type = type;
+        this.title = title;
+        this.message = message;
+        this.payload = payload;
+    }
     public String getType() {
         return type;
     }
@@ -48,34 +69,4 @@ public class confirmation {
     public void setPayload(JSONObject payload) {
         this.payload = payload;
     }
-
-    public ArrayList<actionButton> getActionButtons() {
-        return actionButton;
-    }
-
-    public void setActionButtons(ArrayList<actionButton> actionButtons) {
-        this.actionButton = actionButtons;
-    }
-
-    public ArrayList<details> getDetailse() {
-        return details;
-    }
-
-    public void setDetailse(ArrayList<details> detailse) {
-        this.details = detailse;
-    }
-
-    public confirmation (ArrayList<actionButton> actionButton, ArrayList<details> details, String type, String title)
-    {
-        this.actionButton = actionButton;
-        this.details = details;
-        this.type = type;
-        this.title = title;
-    }
-
-
-    @SuppressWarnings("unused")
-    private confirmation() {
-    }
-
 }

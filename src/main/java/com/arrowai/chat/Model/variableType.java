@@ -1,15 +1,9 @@
 package com.arrowai.chat.Model;
 
 /**
- * Created by Ravinder on 6/28/2016.
+ * Created by rajmendra on 22/06/16.
  */
-public class variableType {
-    String type;
-    String valueName;
-
-    private variableType() {
-    }
-
+public class VariableType {
     public String getType() {
         return type;
     }
@@ -26,8 +20,11 @@ public class variableType {
         this.valueName = valueName;
     }
 
-    public variableType(String type, String valueName) {
-        this.type = type;
-        this.valueName = valueName;
+    String  type;
+    String valueName;
+    // Required default constructor for Firebase object mapping
+    @SuppressWarnings("unused")
+    private VariableType() {
     }
+
 }

@@ -16,7 +16,7 @@ import com.arrowai.chat.Activity.Chat;
 import com.arrowai.chat.Activity.ChatActivity;
 import com.arrowai.chat.Model.ButtonTemplate;
 import com.arrowai.chat.Model.Card;
-import com.arrowai.chat.Model.confirmation;
+import com.arrowai.chat.Model.Confirmation;
 import com.arrowai.chat.Model.Crausal;
 import com.arrowai.chat.Model.TransactionHistory;
 import com.arrowai.chat.R;
@@ -56,10 +56,10 @@ public class CarausalAdapter extends ArrayAdapter<Crausal> {
     private Context context;
     private CardListAdapter cardListAdapter;
     private ConfirmationAdapter confirmationAdapter;
-    private ArrayList<confirmation> confirmationList;
+    private ArrayList<Confirmation> confirmationList;
     private ArrayList<ButtonTemplate> buttonList;
     private ButtonTemplate buttons;
-    private confirmation confirmation;
+    private Confirmation confirmation;
     private TransactionAdapter transactionAdapter;
     private ButtonTemplateAdapter buttonTemplateAdapter;
     String mUsername;
@@ -102,7 +102,7 @@ public class CarausalAdapter extends ArrayAdapter<Crausal> {
                 String cardName = jsonObject.getString("title");
                 String cardImage = jsonObject.getString("image");
                 String description = jsonObject.getString("description");
-                cardList = new Card(cardName, cardImage, description);
+               // cardList = new Card(cardName, cardImage, description);
                 cardListArry.add(cardList);
             }
 

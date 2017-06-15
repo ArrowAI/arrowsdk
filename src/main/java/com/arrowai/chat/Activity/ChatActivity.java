@@ -41,6 +41,7 @@ import com.arrowai.chat.Adapter.AdapterChatList;
 import com.arrowai.chat.Adapter.SideMenuAdaper;
 import com.arrowai.chat.Adapter.SuggestionAdapter;
 import com.arrowai.chat.Adapter.TopMenuAdapter;
+import com.arrowai.chat.Helper;
 import com.arrowai.chat.Model.ArrowAi;
 import com.arrowai.chat.Model.IntitialResponse;
 import com.arrowai.chat.Model.NavItem;
@@ -104,6 +105,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     String text;
     String endExistingFlow;
     GifImageView imgLoading;
+    private String identifierKey;
     String initialGreeting;
     TopMenu menu;
     List<TopMenu> menuArrayList;
@@ -147,11 +149,19 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private TwoWayView towWaySuggestion ;
     private boolean disableTyping;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CookieHandler.setDefault(new CookieManager());
         setContentView(R.layout.activity_chat);
+        JSONObject json = new JSONObject();
+        try {
+            json.put("ravi", "ravinder");
+        }catch (Exception e){
+
+        }
+        if (Helper.myapp != null) Helper.myapp.myFunction(json);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setOnClickListener(
@@ -176,7 +186,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
                     String message = inputText.getText().toString();
-                    sendMessage(message, false, null);
+                    sendMessage(message, false, null, false, "", "");
                     inputText.setText("");
                 }
                 return true;
@@ -241,6 +251,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         listViewChat = (ListView) findViewById(R.id.list);
         setupUsername();
+        identifierKey = userId + "_" + appId;
         sqLiteAdapter = new SQLiteAdapter(this);
         chatListData = new ChatListData(sqLiteAdapter);
         chatList = new ArrayList<Chat>();
@@ -268,7 +279,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
                     String message = inputText.getText().toString();
-                    sendMessage(message, false, null);
+                    sendMessage(message, false, null, false, "", "");
                     inputText.setText("");
                 }
                 return true;
@@ -323,7 +334,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
                     String message = inputText.getText().toString();
-                    sendMessage(message, false, new JSONObject());
+                    sendMessage(message, false, null, false, "", "");
                     inputText.setText("");
                 }
                 return true;
@@ -334,7 +345,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     @Override
                     public void onClick(View view) {
                         String message = inputText.getText().toString();
-                        sendMessage(message, false, null);
+                        sendMessage(message, false, null, false, "", "");
                         towWaySuggestion.setVisibility(View.GONE);
                         inputText.setText("");
                     }
@@ -356,6 +367,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
                 String str = s;
                 JSONObject responseObj = new JSONObject();
                 JSONObject messageData = new JSONObject();
@@ -363,12 +375,14 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 JSONObject sender = new JSONObject();
                 dataSnapshot.getChildren();
                 Gson gson = new Gson();
+                String timestamp;
                 String responseJson = gson.toJson(dataSnapshot.getValue());
                 try {
                     responseObj = new JSONObject(responseJson);
                     Log.d("My App", responseObj.toString());
                 } catch (Throwable t) {
                 }
+                imgLoading.setVisibility(View.GONE);
                 if (responseObj.has("message")) {
                     processResponse(responseJson);
                 } else if (responseObj.has("messageData")) {
@@ -376,8 +390,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                         messageData = responseObj.getJSONObject("messageData");
                         String from = "";
                         String chatText = "";
-                        String timestamp;
-                        String senderId = "";
+
                         Chat chat = null;
                         if (responseObj.has("sentFromServer")) {
                             if (responseObj.getBoolean("sentFromServer") == true) {
@@ -385,7 +398,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                             }
                         }
                         if (responseObj.has("sentFromUser")) {
-                            if (responseObj.getBoolean("sentFromUser") == true ) {
+                            if (responseObj.getBoolean("sentFromUser") == true) {
                                 from = "sentFromUser";
                             }
                         }
@@ -395,14 +408,13 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                                 from = "sentFromRep";
                             }
                         }
+                        timestamp = responseObj.getString("timestamp");
                         if (messageData.has("message")) {
                             message = messageData.getJSONObject("message");
-                            sender = messageData.getJSONObject("sender");
-                            chatText = message.getString("text");
-                            senderId = sender.getString("id");
-                            timestamp = responseObj.getString("timestamp");
+                            chatText = message.getString("text").trim();
+
                             if (chatText != null && !chatText.trim().equals("")) {
-                                chat = new Chat(mUsername, senderId, chatText, from, timestamp, null, mUsername);
+                                chat = new Chat(mUsername, botId, chatText, from, Long.valueOf(timestamp), null, "");
                                 chatList.add(chat);
                             }
                         }
@@ -425,7 +437,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                                 return;
                             } else {
                                 String IntitialResponse = gson.toJson(dataSnapshot.getValue());
-                                bindInitialGreatings(IntitialResponse);
+                                bindInitialGreatings(IntitialResponse, responseObj.getString("timestamp"));
                             }
                         } catch (Exception ex) {
                         }
@@ -433,7 +445,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 }
                 //refresh adapter
                 mChatListAdapter.notifyDataSetChanged();
-                setFocusLastElem();
+                // setFocusLastElem();
             }
 
             @Override
@@ -483,13 +495,14 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             myRef.push().setValue(star);
         }
     }
-    public void setBotId(JSONArray action, String botName, String botId) {
-        towWaySuggestion.setVisibility(View.GONE);
+    public void setBotId(JSONArray action, String botName, String botId, JSONObject payload) {
         boolean setbotId = false;
         boolean sendStartMessage = false;
         boolean deletebotId = false;
         boolean sendText = false;
         boolean hideKeyboard = false;
+        boolean sendPayload = false;
+        boolean EndExistingFlow = false;
         for (int i = 0; i < action.length(); i++) {
             try {
                 if (action.getString(i).equals("setBotId")) {
@@ -503,22 +516,64 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 }
                 if (action.getString(i).equals("sendText")) {
                     sendText = true;
+                }
+                if (action.getString(i).equals("sendPayload")) {
+                    sendText = true;
+                    sendPayload = true;
+                }
+                if (action.getString(i).equals("hideKeyboard")) {
                     hideKeyboard = true;
+                }
+                if (action.getString(i).equals("addEndExistingFlow")) {
+                    EndExistingFlow = true;
                 }
             } catch (Exception ex) {
 
             }
         }
         if (sendText) {
-            sendMessage(botName, false, null);
-            hideKeyboard();
+            sendMessage(botName, false, null, false, "", "");
+
+
         } else {
+
             getBotInitials(setbotId, sendStartMessage, deletebotId, botId);
-            chat = new Chat(mUsername, botId, botName, "sentFromUser", getTime(), null, "");
+            chat = new Chat(mUsername, botId, botName, mUsername, Long.valueOf(getTime()), null, "");
             chatList.add(chat);
             mChatListAdapter.notifyDataSetChanged();
             setFocusLastElem();
         }
+        if (sendPayload) {
+            sendPayLoad(payload, EndExistingFlow);
+        }
+        if (hideKeyboard) {
+            hideKeyboard();
+        }
+    }
+    private void sendPayLoad(JSONObject payloadParam, boolean endExistingFlow) {
+        myRef = database.getReference("inComingMessage");
+        try {
+            if (payloadParam != null) {
+                String variable = "", value = "";
+                buttonPayload payload = new buttonPayload();
+                postback postback = new postback();
+                message m = new message();
+                variable = payloadParam.getString("variable");
+                value = payloadParam.getString("value");
+                payload.setVariable(variable);
+                payload.setValue(value);
+                postback.setPayload(payload);
+                m.setPostback(postback);
+               // m.setEndExistingFlow(endExistingFlow);
+                sender s = new sender(userId);
+                messageData mdata = new messageData(m, s);
+                RequestParams req = new RequestParams(botId, appId, null, mdata, null, s, false, true, Long.valueOf(getTime()));
+                myRef.push().setValue(req);
+            }
+        } catch (Exception e) {
+
+        }
+        imgLoading.setVisibility(View.VISIBLE);
     }
     public void showSuggestions(JSONArray recommendations) {
         JSONArray suggestionsObj = new JSONArray();
@@ -544,24 +599,21 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         suggestionAdapter.notifyDataSetChanged();
 
     }
-
     public void convertStartMessageToKeyboard(JSONObject keyboard) {
         JSONArray option = new JSONArray();
         JSONArray action = new JSONArray();
-        try {
+        JSONObject payload = new JSONObject();
 
-                if(keyboard.has("disableTyping"))
-                {
-                    disableTyping=keyboard.getBoolean("disableTyping");
-                }
-                if(disableTyping)
-                {
-                    inputText.setEnabled(false);
-                }
-                if(!disableTyping)
-                {
-                    inputText.setEnabled(true);
-                }
+        try {
+            if (keyboard.has("disableTyping")) {
+                disableTyping = keyboard.getBoolean("disableTyping");
+            }
+            if (disableTyping) {
+                inputText.setEnabled(false);
+            }
+            if (!disableTyping) {
+                inputText.setEnabled(true);
+            }
             if (keyboard.has("options")) {
 
                 topMenuList = new ArrayList<TopMenu>();
@@ -574,7 +626,10 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     if (jsonObject.has("botId")) {
                         botId = jsonObject.getString("botId");
                     }
-                    topMenu = new TopMenu(action, botName, botId);
+                    if (jsonObject.has("payload")) {
+                        payload = jsonObject.getJSONObject("payload");
+                    }
+                    topMenu = new TopMenu(action, botName, botId, payload);
                     topMenuList.add(topMenu);
                 }
             }
@@ -589,7 +644,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         bottomMenuAdapter.notifyDataSetChanged();
         showKeybord();
     }
-
     public void showKeybord() {
         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(ChatActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -643,43 +697,47 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void sendMessage(String chatText, final boolean botResend, JSONObject payloadParam) {
+    public void sendMessage(String chatText, final boolean botResend, JSONObject payloadParam, boolean endExistingFlow, String type, String url) {
         if (chatText.equals("") && !botResend) {
             return;
         }
-        try {
-            if (payloadParam != null) {
-                String variable = "", value = "";
-                buttonPayload payload = new buttonPayload();
-                postback postback = new postback();
-                message m = new message();
-                variable = payloadParam.getString("variable");
-                value = payloadParam.getString("value");
-                payload.setVariable(variable);
-                payload.setValue(value);
-                postback.setPayload(payload);
-                m.setPostback(postback);
-                sender s = new sender(userId);
-                messageData mdata = new messageData(m, s);
-                RequestParams req = new RequestParams(botId, appId, null, mdata, null, s, false, true, Long.valueOf(getTime()));
-                myRef = database.getReference("inComingMessage");
-                myRef.push().setValue(req);
+        towWaySuggestion.setVisibility(View.GONE);
+        imgLoading.setVisibility(View.VISIBLE);
 
-            } else {
-                message m = new message();
-                m.setText(chatText);
-                sender s = new sender(userId);
-                messageData mdata = new messageData(m, s);
-                RequestParams req = new RequestParams(botId, appId, null, mdata, null, s, false, true, Long.valueOf(getTime()));
-                myRef = database.getReference("inComingMessage");
-                myRef.push().setValue(req);
+            try {
+                if (payloadParam != null) {
+                    String variable = "", value = "";
+                    buttonPayload payload = new buttonPayload();
+                    postback postback = new postback();
+                    message m = new message();
+                    variable = payloadParam.getString("variable");
+                    value = payloadParam.getString("value");
+                    payload.setVariable(variable);
+                    payload.setValue(value);
+                    postback.setPayload(payload);
+                    m.setPostback(postback);
+                    sender s = new sender(userId);
+                    messageData mdata = new messageData(m, s);
+                    RequestParams req = new RequestParams(botId, appId, null, mdata, null, s, false, true, Long.valueOf(getTime()));
+                    myRef = database.getReference("inComingMessage");
+                    myRef.push().setValue(req);
+
+                } else {
+                    message m = new message();
+                    m.setText(chatText);
+                    sender s = new sender(userId);
+                    messageData mdata = new messageData(m, s);
+                    RequestParams req = new RequestParams(botId, appId, null, mdata, null, s, false, true, Long.valueOf(getTime()));
+                    myRef = database.getReference("inComingMessage");
+                    myRef.push().setValue(req);
+                }
+            } catch (Exception e) {
+
             }
-        } catch (Exception e) {
-
         }
-    }
 
-    void bindInitialGreatings(String response) {
+
+    void bindInitialGreatings(String response, String timeStamp) {
         try {
             JSONObject responseJson = new JSONObject(response);
             JSONObject data = responseJson.getJSONObject("start");
@@ -691,10 +749,11 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             if (data.has("initialGreeting")) {
                 initialGreeting = data.getString("initialGreeting");
             }
+
             if (initialGreeting != null && initialGreeting.length() > 0) {
-                chat = new Chat(mUsername, botId, initialGreeting, botName, getTime(), null, "");
+                chat = new Chat(mUsername, botId, initialGreeting, botName, Long.valueOf(timeStamp), null, "");
                 chatList.add(chat);
-                chat = new Chat(mUsername, botId, suggestionArray, botName, getTime(), null, "list");
+                chat = new Chat(mUsername, botId, suggestionArray, botName, Long.valueOf(timeStamp), null, "list");
                 chatList.add(chat);
             }
             mChatListAdapter = new AdapterChatList(ChatActivity.this, chatList, mUsername);
@@ -706,14 +765,14 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     void processResponse(String response) {
+        String timestamp;
         try {
             JSONObject responseJson = new JSONObject(response);
 
-            String callAgain = "", text = "", noResponse = "",from="";
+            String callAgain = "", text = "", noResponse = "", from = "";
             attachmentJson = null;
             if (responseJson.has("sentFromServer")) {
                 if (responseJson.getBoolean("sentFromServer") == true) {
@@ -721,7 +780,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
             if (responseJson.has("sentFromUser")) {
-                if (responseJson.getBoolean("sentFromUser") == true ) {
+                if (responseJson.getBoolean("sentFromUser") == true) {
                     from = "sentFromUser";
                 }
             }
@@ -733,7 +792,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             }
             if (responseJson.has("message")) {
                 JSONObject messageJson = responseJson.getJSONObject("message");
-                if(messageJson.has("recommendations")) {
+                if (messageJson.has("recommendations")) {
                     showSuggestions(messageJson.getJSONArray("recommendations"));
                 }
                 if (messageJson.has("callAgain")) {
@@ -750,7 +809,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     attachmentJson = messageJson.getJSONObject("attachment");
                 }
                 if (!noResponse.toLowerCase().equals("true")) {
-                    chat = new Chat(mUsername, botId, text, from, getTime(), attachmentJson, "");
+                    timestamp = responseJson.getString("timestamp");
+                    chat = new Chat(mUsername, botId, text, from, Long.valueOf(timestamp), attachmentJson, "");
                     chatList.add(chat);
                 }
                 if (callAgain != null && callAgain.toLowerCase().equals("true")) {
@@ -759,7 +819,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     RelativeLayout lytSuggestion = (RelativeLayout) findViewById(R.id.lytSuggestion);
                     if (messageJson.has("suggestion")) {
                         String suggestion = messageJson.getString("suggestion");
-                        lytSuggestion.setVisibility(View.VISIBLE);
+                        //lytSuggestion.setVisibility(View.VISIBLE);
                         TextView textSuggestionMessage = (TextView) findViewById(R.id.textSuggestionMessage);
                         textSuggestionMessage.setText(suggestion);
                     } else {
@@ -851,7 +911,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     getBotInitials();
                     return;
                 }
-                sendMessage(text, false, null);
+
+                sendMessage(text, false, null, false, "", "");
             }
         });
     }
@@ -918,39 +979,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void bindList() {
-//    chatList.clear();
-        sqLiteAdapter.openToRead();
-        Cursor cursor = chatListData.getAllChatListData();
-        if (cursor == null) {
-            return;
-        }
-        String chatbot;
-        String chatuser;
-        String text;
-        String from;
-        String time;
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                chatbot = cursor.getString(cursor.getColumnIndex("chatbot"));
-                chatuser = cursor.getString(cursor.getColumnIndex("chatuser"));
-                if (chatbot != null && chatbot.toLowerCase().equals(botId.toLowerCase()) && chatuser.toLowerCase().equals(mUsername.toLowerCase())) {
-                    text = cursor.getString(cursor.getColumnIndex("text"));
-                    from = cursor.getString(cursor.getColumnIndex("fromUser"));
-                    time = cursor.getString(cursor.getColumnIndex("time"));
-                    chat = new Chat(chatuser, chatbot, text, from, time, null, "");
-                    chatList.add(chat);
-                    mChatListAdapter = new AdapterChatList(getApplicationContext(), chatList, mUsername);
-                    listViewChat.setAdapter(mChatListAdapter);
-                }
-                cursor.moveToNext();
-            }
-        }
-        // mChatListAdapter = new AdapterChatList(null, ChatActivity.this, R.layout.activity_chat,chat,mUsername);
-        cursor.close();
-        sqLiteAdapter.close();
-        setFocusLastElem();
-    }
+
     private void setFocusLastElem() {
         listViewChat.setSelection(chatList.size() - 1);
 
@@ -961,20 +990,19 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     JSONObject attachmentJson;
 
     public void showCardDiscriopion(String cardName, String cardDescription) {
-
         if (chatList != null && chatList.size() > 0) {
             chat = chatList.get(chatList.size() - 1);
         }
         if (chat != null && chat.getType().equals("card_detail")) {
             chatList.remove(chatList.size() - 1);
         }
-
-        chat = new Chat(cardName, cardDescription, "", "", "", null, "card_detail");
+        chat = new Chat(cardName, cardDescription, "", "", Long.valueOf(getTime()), null, "card_detail");
         chatList.add(chat);
         mChatListAdapter = new AdapterChatList(ChatActivity.this, chatList, mUsername);
         listViewChat.setAdapter(mChatListAdapter);
         setFocusLastElem();
     }
+
 
     private String getTime() {
         Long tsLong = System.currentTimeMillis();

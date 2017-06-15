@@ -7,12 +7,12 @@ public class buttons {
    public buttonPayload payload;
     public  String title;
     public String type;
-    public variableType variableType;
+    public VariableType variableType;
 
     public buttons() {
     }
 
-    public buttons(buttonPayload payload, String title, String type, com.arrowai.chat.Model.variableType variableType) {
+    public buttons(buttonPayload payload, String title, String type, com.arrowai.chat.Model.VariableType variableType) {
         this.payload = payload;
         this.title = title;
         this.type = type;
@@ -43,11 +43,11 @@ public class buttons {
         this.type = type;
     }
 
-    public com.arrowai.chat.Model.variableType getVariableType() {
+    public com.arrowai.chat.Model.VariableType getVariableType() {
         return variableType;
     }
 
-    public void setVariableType(com.arrowai.chat.Model.variableType variableType) {
+    public void setVariableType(com.arrowai.chat.Model.VariableType variableType) {
         this.variableType = variableType;
     }
 }

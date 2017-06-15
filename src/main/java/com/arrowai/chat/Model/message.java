@@ -11,6 +11,7 @@ public class message {
     String suggestion;
     String text;
     postback postback;
+    boolean endExistingFlow;
     // Required default constructor for Firebase object mapping
     @SuppressWarnings("unused")
     public message() {
@@ -80,5 +81,13 @@ public class message {
 
     public void setPostback(com.arrowai.chat.Model.postback postback) {
         this.postback = postback;
+    }
+
+    public boolean isEndExistingFlow() {
+        return endExistingFlow;
+    }
+
+    public void setEndExistingFlow(boolean endExistingFlow) {
+        this.endExistingFlow = endExistingFlow;
     }
 }

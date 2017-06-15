@@ -6,29 +6,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.arrowai.chat.Activity.ChatActivity;
-import  com.arrowai.chat.Activity.HomeActivity;
-import  com.arrowai.chat.Model.confirmation_class;
-import  com.arrowai.chat.R;
+import com.arrowai.chat.Activity.HomeActivity;
+//import com.arrowai.chat.Model.Card;
+import com.arrowai.chat.Model.Confirmation;
+import com.arrowai.chat.Model.VolleySingleton;
+import com.arrowai.chat.R;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
+
 /**
  * Created by Ravinder on 6/7/2016.
  */
 public class ConfirmationAdapter extends BaseAdapter {
     private LayoutInflater layoutinflater;
     ViewHolder listViewHolder;
-    private List<confirmation_class> listStorage;
+    private List<Confirmation> listStorage;
     private Context context;
     private HomeActivity.AnimateFirstDisplayListener mAnimator;
     int[] imageview;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
-    public ConfirmationAdapter(Context context, List<confirmation_class> customizedListView) {
+    public ConfirmationAdapter(Context context, List<Confirmation> customizedListView) {
         this.context = context;
         this.imageview = imageview;
         layoutinflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -68,8 +75,7 @@ public class ConfirmationAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (context instanceof ChatActivity) {
-                    ((ChatActivity) context).sendMessage("", true, listStorage.get(position).getPayload());
-                }
+                    ((ChatActivity) context).sendMessage("", true, listStorage.get(position).getPayload(),false,"","");                }
             }
         });
         return convertView;

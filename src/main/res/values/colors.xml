@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4053bc</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+
+    <!--<color name="colorAccent">#FF4081</color>-->
     <color name="main_color_green">#00b863</color>
     <color name="main_color_gray_dk">#3b3b3b</color>
     <color name="main_color_gray_lt">#acacac</color>
@@ -18,4 +19,31 @@
 
     <color name="black_overlay">#66000000</color>
 
+    <color name="colorPrimary">#165c9f</color>
+    <color name="colorPrimaryDark">#0f4b78</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="actionbar_opacity">#33000000</color>
+    <color name="colorAccent">#165c9f</color>
+    <color name="messanger">#0084ff</color>
+    <color name="telegram">#45668e</color>
+    <array name="colors">
+        <item>#DB4437</item>
+        <item>#FF5722</item>
+        <item>#EF6C00</item>
+        <item>#689F38</item>
+        <item>#0097A7</item>
+        <item>#4285F4</item>
+        <item>#039BE5</item>
+        <item>#DB4437</item>
+        <item>#3F51B5</item>
+        <item>#673AB7</item>
+        <item>#757575</item>
+
+    </array>
+
+    <color name="dark_grey">#424242</color>
+    <color name="medium_grey">#9E9E9E</color>
+    <color name="button_grey">#757575</color>
 </resources>

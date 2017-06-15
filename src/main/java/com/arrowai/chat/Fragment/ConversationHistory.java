@@ -121,7 +121,7 @@ public class ConversationHistory extends Fragment {
                             if(!bots.contains(chatbot)){
                                 text = cursorChats.getString(cursorChats.getColumnIndex("text"));
                                 time = cursorChats.getString(cursorChats.getColumnIndex("time"));
-                                chat = new Chat(chatuser, chatbot, text, from, time, null,"");
+                               // chat = new Chat(chatuser, chatbot, text, from, time, null,"");
                                 chatList.add(chat);
                                 bots.add(chatbot);
                                 Model_ListChat ab = new Model_ListChat(chatbot, from, "", "",image,time,null,null,null);
