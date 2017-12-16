@@ -81,7 +81,7 @@ public class Adapter_ListChat extends BaseAdapter
         if(convertView == null)
         {
             listViewHolder = new ViewHolder();
-            convertView = layoutinflater.inflate(R.layout.listchat_titles, parent, false);
+                convertView = layoutinflater.inflate(R.layout.listchat_titles, parent, false);
             listViewHolder.mTitle = (TextView) convertView.findViewById(R.id.Title);
             listViewHolder.mDesc = (TextView) convertView.findViewById(R.id.Desc);
             listViewHolder.image=(ImageView)convertView.findViewById(R.id.image);

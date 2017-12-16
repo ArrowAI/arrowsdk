@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
@@ -18,6 +20,7 @@ import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -25,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -37,6 +41,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.arrowai.chat.Adapter.AdapterChatList;
 import com.arrowai.chat.Adapter.SideMenuAdaper;
 import com.arrowai.chat.Adapter.SuggestionAdapter;
@@ -59,6 +69,7 @@ import com.arrowai.chat.SQliteData.ChatListData;
 import com.arrowai.chat.SQliteData.SQLiteAdapter;
 import com.arrowai.chat.util.CommonUtil;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -84,7 +95,8 @@ import java.util.Map;
 import java.util.Random;
 
 import pl.droidsonroids.gif.GifImageView;
-public class ChatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TextToSpeech.OnInitListener {
+
+public class ChatActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
     private String email, mobile;
     private ValueEventListener mConnectedListener;
     private AdapterChatList mChatListAdapter;
@@ -98,6 +110,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     ChatListData chatListData;
     private SQLiteAdapter sqLiteAdapter;
     ListView listViewChat;
+    ViewGroup footerView;
     EditText inputText;
     String botName;
     String title;
@@ -112,14 +125,15 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     TopMenuAdapter topMenuAdapter;
     GridView topMenueGrid;
     private String botId;
+    private String initialBotId;
     private String botImage;
     private String getBotName;
-    private ListView mDrawerList;
-    private DrawerLayout mDrawerLayout;
-    ArrayList<NavItem> menuItem;
-    NavItem sideMenuItem;
-    private SideMenuAdaper mAdapter;
-    private ActionBarDrawerToggle mDrawerToggle;
+    // private ListView mDrawerList;
+    //private DrawerLayout mDrawerLayout;
+    //ArrayList<NavItem> menuItem;
+    // NavItem sideMenuItem;
+    // private SideMenuAdaper mAdapter;
+    //private ActionBarDrawerToggle mDrawerToggle;
     //firebase implimantion
     private String mActivityTitle;
     FirebaseDatabase database;
@@ -144,43 +158,49 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     TopMenu topMenu;
     suggestions suggestions;
     private GridView bottomMenu;
-    ImageButton keyBoard, dashBoard;
+    //ImageButton keyBoard, dashBoard;
     RelativeLayout dynamicKeyboard;
-    private TwoWayView towWaySuggestion ;
+    private TwoWayView towWaySuggestion;
     private boolean disableTyping;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         CookieHandler.setDefault(new CookieManager());
         setContentView(R.layout.activity_chat);
         JSONObject json = new JSONObject();
         try {
             json.put("ravi", "ravinder");
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         if (Helper.myapp != null) Helper.myapp.myFunction(json);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setOnClickListener(
+        /*toolbar.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         FrameLayout f = (FrameLayout) findViewById(R.id.frameLayout);
                         f.setVisibility(View.VISIBLE);
+
                     }
                 }
-        );
+        );*/
         ArrowAi appConfiguration = new ArrowAi();
-        menuItem = new ArrayList<>();
-        keyBoard = (ImageButton) findViewById(R.id.keyBoard);
-        dashBoard = (ImageButton) findViewById(R.id.dashBoard);
+        // menuItem = new ArrayList<>();
+        //keyBoard = (ImageButton) findViewById(R.id.keyBoard);
+        //dashBoard = (ImageButton) findViewById(R.id.dashBoard);
         bottomMenu = (GridView) findViewById(R.id.BottomMenu);
         dynamicKeyboard = (RelativeLayout) findViewById(R.id.dynamicKeyboard);
         inputText = (EditText) findViewById(R.id.messageInput);
-        towWaySuggestion=(TwoWayView) findViewById(R.id.suggestion);
+
+        //previous
+        //towWaySuggestion = (TwoWayView) findViewById(R.id.suggestion);
+
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -196,8 +216,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 dynamicKeyboard.setVisibility(View.GONE);
-                dashBoard.setVisibility(View.VISIBLE);
-                keyBoard.setVisibility(View.GONE);
+                //dashBoard.setVisibility(View.VISIBLE);
+                //keyBoard.setVisibility(View.GONE);
             }
         });
         inputText.addTextChangedListener(new TextWatcher() {
@@ -212,18 +232,18 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void afterTextChanged(Editable s) {
                 if (inputText.length() == 0) {
-                    dashBoard.setVisibility(View.VISIBLE);
+                    //dashBoard.setVisibility(View.VISIBLE);
 
                 } else {
-                    keyBoard.setVisibility(View.GONE);
+                    // keyBoard.setVisibility(View.GONE);
                     dynamicKeyboard.setVisibility(View.GONE);
-                    dashBoard.setVisibility(View.VISIBLE);
+                    //dashBoard.setVisibility(View.VISIBLE);
 
                 }
 
             }
         });
-        keyBoard.setOnClickListener(new View.OnClickListener() {
+        /*keyBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hideKeyboard();
@@ -241,15 +261,23 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
 
         //getSupportActionBar().setIcon(R.drawable.home);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        toggle.syncState();*/
         listViewChat = (ListView) findViewById(R.id.list);
+        // footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.suggetion_layout, null, false);
+        footerView = (ViewGroup) getLayoutInflater().inflate(R.layout.suggetion_layout, listViewChat, false);
+
+        towWaySuggestion = (TwoWayView) footerView.findViewById(R.id.suggestions);
+        final View headerView = new View(this);
+        headerView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, 30));
+        listViewChat.addHeaderView(headerView);
+        listViewChat.addFooterView(footerView);
         setupUsername();
         identifierKey = userId + "_" + appId;
         sqLiteAdapter = new SQLiteAdapter(this);
@@ -258,10 +286,10 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         menuArrayList = new ArrayList<TopMenu>();
         imgLoading = (GifImageView) findViewById(R.id.imgLoading);
         checkNetwork();
-        mDrawerList = (ListView) findViewById(R.id.navList);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // mDrawerList = (ListView) findViewById(R.id.navList);
+        //mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
-        setupDrawer();
+        //setupDrawer();
         try {
             bots = new JSONArray(bot);
             sideMenu = new JSONArray(sideMenus);
@@ -272,6 +300,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         Random r = new Random();
         Intent intent = getIntent();
         getSupportActionBar().setTitle(botName);
+        //enable back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //bindList();
         inputText = (EditText) findViewById(R.id.messageInput);
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -290,16 +320,16 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         inputText = (EditText) findViewById(R.id.messageInput);
         inputText.setFocusableInTouchMode(false);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
-        inputText.setOnTouchListener(new View.OnTouchListener(){
+        inputText.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
+            public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
                 inputText.setFocusableInTouchMode(true);
-                inputText.requestFocus() ;
+                inputText.requestFocus();
                 return false;
-            }});
+            }
+        });
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -348,6 +378,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                         sendMessage(message, false, null, false, "", "");
                         towWaySuggestion.setVisibility(View.GONE);
                         inputText.setText("");
+
                     }
                 });
         if (chatList.size() <= 0) {
@@ -360,10 +391,37 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         mChatListAdapter = new
                 AdapterChatList(ChatActivity.this, chatList, mUsername);
         listViewChat.setAdapter(mChatListAdapter);
+
         database = FirebaseDatabase.getInstance();
         bindMenu();
 
         myRef = database.getReference("outGoingMessage/" + appId + "/users/" + userId + "/messages");
+
+
+        database.getReference(".info/connected").addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            @Override public void onDataChange(DataSnapshot dataSnapshot) {
+                RelativeLayout noconnection = (RelativeLayout) findViewById(R.id.noconnection);
+                noconnection.setVisibility(View.GONE);
+                //boolean connected = dataSnapshot.getValue(Boolean.class);
+
+                if (isNetworkAvailable() == false) {
+                    noconnection.setVisibility(View.VISIBLE);
+                    System.out.println("not connected");
+                } else {
+                    noconnection.setVisibility(View.GONE);
+                    System.out.println("not connected");
+                }
+            }
+
+            @Override public void onCancelled(DatabaseError databaseError) {
+                System.err.println("Listener was cancelled");
+            }
+        });
+
+
+
+
+
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -445,11 +503,14 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 }
                 //refresh adapter
                 mChatListAdapter.notifyDataSetChanged();
+                listViewChat.setSelection(mChatListAdapter.getCount() - 1);
                 // setFocusLastElem();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                Log.d("change", s);
             }
 
             @Override
@@ -470,6 +531,31 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             inputManager.hideSoftInputFromWindow(ChatActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
         }
+
+        Intent newIntent = getIntent();
+        String conversationId = newIntent.getStringExtra("ConversationId");
+        if (conversationId != null) {
+            {
+                JSONObject conversationObject = new JSONObject();
+                try {
+                    conversationObject.put("applicationId", appId);
+                    conversationObject.put("integration", "android");
+                    conversationObject.put("botId", botId);
+                    conversationObject.put("start", 1);
+                    conversationObject.put("sentFromUser", true);
+                    conversationObject.put("timestamp", Long.valueOf(getTime()));
+                    JSONObject sender = new JSONObject();
+                    sender.put("id", userId);
+                    conversationObject.put("sender", sender);
+
+
+                    sendRequest(conversationObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
     void bindMenu() {
@@ -480,7 +566,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         myRef.push().setValue(star);
 
     }
-    private void getBotInitials(boolean setBotid, boolean senStartMessage, boolean deletebotId, String botIdt) {
+
+    private void getBotInitials(boolean setBotid, boolean senStartMessage,
+                                boolean deletebotId, String botIdt) {
         sender s = new sender(userId);
         myRef = database.getReference("inComingMessage");
         if (setBotid && senStartMessage) {
@@ -495,6 +583,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             myRef.push().setValue(star);
         }
     }
+
     public void setBotId(JSONArray action, String botName, String botId, JSONObject payload) {
         boolean setbotId = false;
         boolean sendStartMessage = false;
@@ -550,6 +639,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             hideKeyboard();
         }
     }
+
     private void sendPayLoad(JSONObject payloadParam, boolean endExistingFlow) {
         myRef = database.getReference("inComingMessage");
         try {
@@ -564,7 +654,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 payload.setValue(value);
                 postback.setPayload(payload);
                 m.setPostback(postback);
-               // m.setEndExistingFlow(endExistingFlow);
+                // m.setEndExistingFlow(endExistingFlow);
                 sender s = new sender(userId);
                 messageData mdata = new messageData(m, s);
                 RequestParams req = new RequestParams(botId, appId, null, mdata, null, s, false, true, Long.valueOf(getTime()));
@@ -575,11 +665,12 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         }
         imgLoading.setVisibility(View.VISIBLE);
     }
+
     public void showSuggestions(JSONArray recommendations) {
         JSONArray suggestionsObj = new JSONArray();
         JSONArray recommendationArray = new JSONArray();
         try {
-            if (recommendations.length()!=0 ) {
+            if (recommendations.length() != 0) {
                 towWaySuggestion.setVisibility(View.VISIBLE);
                 suggestionArrary = new ArrayList<suggestions>();
                 recommendationArray = recommendations;
@@ -599,6 +690,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         suggestionAdapter.notifyDataSetChanged();
 
     }
+
     public void convertStartMessageToKeyboard(JSONObject keyboard) {
         JSONArray option = new JSONArray();
         JSONArray action = new JSONArray();
@@ -644,18 +736,19 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         bottomMenuAdapter.notifyDataSetChanged();
         showKeybord();
     }
+
     public void showKeybord() {
         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(ChatActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        dashBoard.setVisibility(View.GONE);
+        //dashBoard.setVisibility(View.GONE);
         dynamicKeyboard.setVisibility(View.VISIBLE);
-        keyBoard.setVisibility(View.VISIBLE);
+        // keyBoard.setVisibility(View.VISIBLE);
     }
 
     public void hideKeyboard() {
-        keyBoard.setVisibility(View.GONE);
+        // keyBoard.setVisibility(View.GONE);
         dynamicKeyboard.setVisibility(View.GONE);
-        dashBoard.setVisibility(View.VISIBLE);
+        //dashBoard.setVisibility(View.VISIBLE);
         InputMethodManager imm = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
@@ -697,44 +790,122 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void sendMessage(String chatText, final boolean botResend, JSONObject payloadParam, boolean endExistingFlow, String type, String url) {
+    public void sendMessage(String chatText, final boolean botResend, JSONObject
+            payloadParam, boolean endExistingFlow, String type, String url) {
         if (chatText.equals("") && !botResend) {
             return;
         }
         towWaySuggestion.setVisibility(View.GONE);
         imgLoading.setVisibility(View.VISIBLE);
 
-            try {
-                if (payloadParam != null) {
-                    String variable = "", value = "";
-                    buttonPayload payload = new buttonPayload();
-                    postback postback = new postback();
-                    message m = new message();
-                    variable = payloadParam.getString("variable");
-                    value = payloadParam.getString("value");
-                    payload.setVariable(variable);
-                    payload.setValue(value);
-                    postback.setPayload(payload);
-                    m.setPostback(postback);
-                    sender s = new sender(userId);
-                    messageData mdata = new messageData(m, s);
-                    RequestParams req = new RequestParams(botId, appId, null, mdata, null, s, false, true, Long.valueOf(getTime()));
-                    myRef = database.getReference("inComingMessage");
-                    myRef.push().setValue(req);
+        try {
 
-                } else {
-                    message m = new message();
-                    m.setText(chatText);
-                    sender s = new sender(userId);
-                    messageData mdata = new messageData(m, s);
-                    RequestParams req = new RequestParams(botId, appId, null, mdata, null, s, false, true, Long.valueOf(getTime()));
-                    myRef = database.getReference("inComingMessage");
-                    myRef.push().setValue(req);
+            if (payloadParam != null) {
+
+                JSONObject requestObject = new JSONObject();
+                JSONObject textObject = new JSONObject();
+                JSONObject idObject = new JSONObject();
+                JSONObject payloadObject = new JSONObject();
+                JSONObject postBackObject = new JSONObject();
+                JSONObject messageDataObject = new JSONObject();
+                requestObject.put("applicationId", appId);
+                requestObject.put("integration", "android");
+                textObject.put("text", chatText);
+                payloadObject.put("value", payloadParam.optString("value"));
+                payloadObject.put("variable", payloadParam.optString("variable"));
+                postBackObject.put("payload", payloadObject);
+                textObject.put("postback", postBackObject);
+                idObject.put("id", userId);
+                messageDataObject.put("message", textObject);
+                messageDataObject.put("sender", idObject);
+                requestObject.put("messageData", messageDataObject);
+                requestObject.put("sentFromServer", false);
+                requestObject.put("sentFromUser", true);
+                requestObject.put("timestamp", Long.valueOf(getTime()));
+                requestObject.put("sender", idObject);
+                requestObject.put("payload", new JSONObject());
+                requestObject.put("botId", initialBotId);
+
+                sendRequest(requestObject);
+            } else {
+                message m = new message();
+                m.setText(chatText);
+                sender s = new sender(userId);
+                messageData mdata = new messageData(m, s);
+                //RequestParams req = new RequestParams(botId, appId, null, mdata, null, s, false, true, Long.valueOf(getTime()));
+                try {
+                    JSONObject requestObject = new JSONObject();
+                    JSONObject textObject = new JSONObject();
+                    JSONObject idObject = new JSONObject();
+                    JSONObject messageDataObject = new JSONObject();
+                    JSONObject payloadObject = new JSONObject();
+                    //JSONObject messageFormatObject = new JSONObject();
+
+                    requestObject.put("applicationId", appId);
+                    requestObject.put("integration", "android");
+                    textObject.put("text", chatText);
+                    idObject.put("id", userId);
+                    messageDataObject.put("message", textObject);
+                    messageDataObject.put("sender", idObject);
+                    requestObject.put("messageData", messageDataObject);
+                    //payloadObject.put("comment", "messageBody");
+                    payloadObject.put("integration", "android");
+                    requestObject.put("payload", payloadObject);
+                    requestObject.put("sender", idObject);
+                    requestObject.put("sentFromServer", false);
+                    requestObject.put("sentFromUser", true);
+                    requestObject.put("timestamp", Long.valueOf(getTime()));
+                    requestObject.put("uniqueUserId", userId);
+                    requestObject.put("botId", initialBotId);
+
+
+                    // messageFormatObject.put("messageFormat", requestObject);
+
+
+                    sendRequest(requestObject);
+
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
                 }
-            } catch (Exception e) {
+
 
             }
+
+            // myRef = database.getReference("inComingMessage");
+            // myRef.push().setValue(req);
+
+        } catch (Exception e) {
+
         }
+    }
+
+
+    public void sendRequest(JSONObject jsonObject) {
+        //setupAppId(ctx);
+        String url = "https://firedev.arrowai.com/messages/incoming";
+        JSONObject deviceInfo = new JSONObject();
+        //deviceInfo = getUserId(ctx);
+
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                int loginStatus = 0;
+
+                if (response.has("success")) {
+                    Log.d("success", response.toString());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        RequestQueue queue = Volley.newRequestQueue(ChatActivity.this);
+        queue.add(jsonObjReq);
+    }
 
 
     void bindInitialGreatings(String response, String timeStamp) {
@@ -841,30 +1012,33 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         myRef.push().setValue(star);
     }
 
-    private void setupDrawer() {
+   /* private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-            /** Called when a drawer has settled in a completely open state. */
+            *//** Called when a drawer has settled in a completely open state. *//*
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
-            /** Called when a drawer has settled in a completely closed state. */
+            */
+
+    /**
+     * Called when a drawer has settled in a completely closed state.
+     *//*
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
         if (showSideMenu) {
-            mDrawerToggle.setDrawerIndicatorEnabled(true);
-            mDrawerLayout.setDrawerListener(mDrawerToggle);
+           // mDrawerToggle.setDrawerIndicatorEnabled(true);
+           // mDrawerLayout.setDrawerListener(mDrawerToggle);
         } else {
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
-            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            //mDrawerToggle.setDrawerIndicatorEnabled(false);
+            //mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
 
-    }
-
+    }*/
     private void addDrawerItems() {
        /* menuItem
           mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems);
@@ -885,8 +1059,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                         }
                         openType = jsonObject.getString("open_type");
                         endExistingFlow = jsonObject.getString("endExistingFlow");
-                        sideMenuItem = new NavItem(title, openType, botId, text, endExistingFlow);
-                        menuItem.add(sideMenuItem);
+                        // sideMenuItem = new NavItem(title, openType, botId, text, endExistingFlow);
+                        // menuItem.add(sideMenuItem);
                     } catch (Exception e) {
                     }
                 }
@@ -894,7 +1068,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         } catch (Exception e) {
 
         }
-        mAdapter = new SideMenuAdaper(ChatActivity.this, menuItem);
+       /* mAdapter = new SideMenuAdaper(ChatActivity.this, menuItem);
         mDrawerList.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -914,7 +1088,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
                 sendMessage(text, false, null, false, "", "");
             }
-        });
+        });*/
     }
 
     public void saveSharedPref(String name) {
@@ -932,15 +1106,18 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         getMenuInflater().inflate(R.menu.main, menu);
 
         return true;
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            FrameLayout f = (FrameLayout) findViewById(R.id.frameLayout);
+            /*FrameLayout f = (FrameLayout) findViewById(R.id.frameLayout);
             f.setVisibility(View.VISIBLE);
-            listViewChat.setEmptyView(new View(ChatActivity.this));
+            listViewChat.setEmptyView(new View(ChatActivity.this));*/
+            finish();
+            return true;
         }
         if (id == R.id.action_logout) {
             SharedPreferences settings = getApplicationContext().getSharedPreferences("ChatShellPrefs", Context.MODE_PRIVATE);
@@ -969,6 +1146,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         mobile = prefs.getString("mobile", null);
         userId = prefs.getString("userId", null);
         bot = prefs.getString("bots", null);
+        initialBotId = prefs.getString("botId", null);
         sideMenus = prefs.getString("sideMenu", null);
         appId = prefs.getString("appId", null);
         showSideMenu = prefs.getBoolean("showMenu", false);
@@ -1029,13 +1207,13 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         return date;
     }
 
-    @Override
+    /*@Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(mDrawerList);
         return false;
-    }
+    }*/
 
     public void setBotId(String botsId, String name) {
         botId = botsId;
@@ -1072,8 +1250,33 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         listView.requestLayout();
         return totalHeight;
     }
+
     @Override
     public void onInit(int status) {
 
     }
-}
+
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityMgr.getActiveNetworkInfo();
+        /// if no network is available networkInfo will be null
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override public void onResume() {
+        super.onResume();
+
+       /* if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                String value = getIntent().getExtras().getString(key);
+                Log.d("TAG", "Key: " + key + " Value: " + value);
+            }
+        }*/
+    }
+
+    }

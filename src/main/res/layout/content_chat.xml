@@ -4,29 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/card_white"
     tools:context="com.arrowai.chat.Activity.ChatActivity"
-    android:weightSum="2"
-    tools:showIn="@layout/activity_chat">
+    android:weightSum="2">
+
     <ListView
         android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/suggestion"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/listFooter"
+
         android:divider="@android:color/transparent"
         android:dividerHeight="5dp"
         android:transcriptMode="alwaysScroll" />
-    <org.lucasr.twowayview.TwoWayView
+    <!--<org.lucasr.twowayview.TwoWayView
         android:layout_width="wrap_content"
         android:id="@+id/suggestion"
         android:visibility="gone"
         style="@style/TwoWayView"
         android:layout_above="@+id/listFooter"
         android:layout_height="70dp">
-    </org.lucasr.twowayview.TwoWayView>
+    </org.lucasr.twowayview.TwoWayView>-->
     <FrameLayout
         android:id="@+id/listFooter"
         android:layout_width="fill_parent"
@@ -53,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/chat_box_container">
 
-                <ImageButton
+                <!--<ImageButton
                     android:id="@+id/keyBoard"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="40dp"
@@ -67,7 +66,7 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:src="@drawable/dashboardnew" />
+                    android:src="@drawable/dashboardnew" />-->
                 <EditText
                     android:id="@+id/messageInput"
                     android:layout_width="wrap_content"

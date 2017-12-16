@@ -10,17 +10,21 @@
     android:paddingLeft="15dp"
     android:layout_marginBottom="20dp"
     android:text="The list of cards matching your need are as follows"
-    android:layout_height="@dimen/pad_20dp" />
+    android:layout_height="wrap_content" />
+
     <org.lucasr.twowayview.TwoWayView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cardGrid"
         style="@style/TwoWayView"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:clipToPadding="false"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+
+
         android:layout_below="@+id/textHeading"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="false" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/cardDetail"

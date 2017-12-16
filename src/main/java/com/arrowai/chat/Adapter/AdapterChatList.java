@@ -1,5 +1,7 @@
 package com.arrowai.chat.Adapter;
 import android.content.Context;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,21 +16,29 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
+
+import org.apache.commons.codec.binary.StringUtils;
 import org.lucasr.twowayview.TwoWayView;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 //import com.arrowai.smartchat.Activity.AddMoneyActivity;
+import com.android.volley.toolbox.NetworkImageView;
 import com.arrowai.chat.Activity.Chat;
 import com.arrowai.chat.Activity.ChatActivity;
 import com.arrowai.chat.Model.ButtonTemplate;
 import com.arrowai.chat.Model.Card;
+import com.arrowai.chat.Model.CardButtonItem;
 import com.arrowai.chat.Model.Confirmation;
 import com.arrowai.chat.Model.TransactionHistory;
+import com.arrowai.chat.Model.VolleySingleton;
 import com.arrowai.chat.R;
 import com.arrowai.chat.util.CommonUtil;
 import com.arrowai.chat.Model.TopMenu;
@@ -48,6 +58,7 @@ public class AdapterChatList extends BaseAdapter {
     ViewHolder listViewHolder;
     Card cardList;
     ArrayList<Card> cardListArry;
+    ArrayList<CardButtonItem> cardBtnListArry;
     TransactionHistory transactionList;
     private List<Chat> listStorage;
     private Context context;
@@ -59,6 +70,7 @@ public class AdapterChatList extends BaseAdapter {
     private Confirmation confirmation;
     private TransactionAdapter transactionAdapter;
     private ButtonTemplateAdapter buttonTemplateAdapter;
+    private static final int UNBOUNDED = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
     TopMenu menu;
   //  List<TopMenu> menuArrayList;
     TopMenuAdapter topMenuAdapter;
@@ -89,6 +101,7 @@ public class AdapterChatList extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         listViewHolder = new ViewHolder();
+
         boolean bindDefaultEvents = true;
         String from = listStorage.get(position).getFrom().toLowerCase();
         String type = listStorage.get(position).getType().toLowerCase();
@@ -109,7 +122,7 @@ public class AdapterChatList extends BaseAdapter {
         JSONObject payloadTemplate = new JSONObject();
         String message = "";
         String tempType = "";
-
+        System.out.println("templateType---"+templateType);
         if (templateType != null && templateType.toLowerCase().equals("template")) {
             bindDefaultEvents = false;
             try {
@@ -122,6 +135,7 @@ public class AdapterChatList extends BaseAdapter {
                 if (payloadTemplate != null && payloadTemplate.has("template_type")) {
                     tempType = payloadTemplate.getString("template_type");
                 }
+                System.out.println("tempType---"+tempType);
                 if (tempType.equals("transaction_list")) {
                     convertView = layoutinflater.inflate(R.layout.transaction_history, parent, false);
                     listViewHolder.cardList = (GridView) convertView.findViewById(R.id.cardGrid);
@@ -138,6 +152,7 @@ public class AdapterChatList extends BaseAdapter {
                     convertView.setTag(listViewHolder);
                 } else if (tempType.equals("search_list")) {
                     cardListArry = new ArrayList<>();
+                    cardBtnListArry = new ArrayList<>();
                     convertView = layoutinflater.inflate(R.layout.card_list_widget, parent, false);
                     listViewHolder.cardList_New = (TwoWayView) convertView.findViewById(R.id.cardGrid);
                     listViewHolder.textMessage = (TextView) convertView.findViewById(R.id.textHeading);
@@ -162,6 +177,20 @@ public class AdapterChatList extends BaseAdapter {
                     listViewHolder = bindButtonEvents(listViewHolder, tempJSON);
                     convertView.setTag(listViewHolder);
                 }
+                else if (tempType.equals("button_bottom")) {
+                    convertView = layoutinflater.inflate(R.layout.button_template, parent, false);
+                    listViewHolder.textMessage = (TextView) convertView.findViewById(R.id.textHeading);
+                    listViewHolder.cardList = (GridView) convertView.findViewById(R.id.buttongrid);
+                    listViewHolder = bindButtonEvents(listViewHolder, tempJSON);
+                    convertView.setTag(listViewHolder);
+                }
+                else if (tempType.equals("image")) {
+                    convertView = layoutinflater.inflate(R.layout.button_template, parent, false);
+                    listViewHolder.textMessage = (TextView) convertView.findViewById(R.id.textHeading);
+                    listViewHolder.cardList = (GridView) convertView.findViewById(R.id.buttongrid);
+                    listViewHolder = bindButtonEvents(listViewHolder, tempJSON);
+                    convertView.setTag(listViewHolder);
+                }
             } catch (Exception e) {
 
             }
@@ -170,14 +199,17 @@ public class AdapterChatList extends BaseAdapter {
             convertView = layoutinflater.inflate(R.layout.card_discription, parent, false);
             listViewHolder.cardName = (TextView) convertView.findViewById(R.id.cardName);
             listViewHolder.cardDescription = (TextView) convertView.findViewById(R.id.cardDescription);
-            convertView.setTag(listViewHolder);
+           convertView.setTag(listViewHolder);
             listViewHolder.cardName.setText(listStorage.get(position).getChatuser());
             listViewHolder.cardDescription.setText(listStorage.get(position).getChatbot());
+            //convertView.setTag(listViewHolder);
+
         } else if (type.equals("list")) {
             bindDefaultEvents = false;
             convertView = layoutinflater.inflate(R.layout.list_options, parent, false);
             listViewHolder.listOptions = (ListView) convertView.findViewById(R.id.listOptions);
             listViewHolder = bindListEvents(listViewHolder, tempJSON, position);
+            convertView.setTag(listViewHolder);
         }
         else if (type.equals("topmenu")) {
             bindDefaultEvents = false;
@@ -190,6 +222,7 @@ public class AdapterChatList extends BaseAdapter {
             convertView = layoutinflater.inflate(R.layout.list_options, parent, false);
             listViewHolder.listOptions = (ListView) convertView.findViewById(R.id.listOptions);
             listViewHolder = bindListEvents(listViewHolder, tempJSON, position);
+            convertView.setTag(listViewHolder);
         } else if (from.equals("sentfromserver")&& !listStorage.get(position).getMessage().trim().equals("")) {
             convertView = layoutinflater.inflate(R.layout.chat_message_left, parent, false);
         } else if (from.equals("sentfromrep") && !listStorage.get(position).getMessage().trim().equals("")) {
@@ -201,7 +234,44 @@ public class AdapterChatList extends BaseAdapter {
         else if(from.equals(mUsername.toLowerCase()))
         {
             convertView = layoutinflater.inflate(R.layout.chat_message_right, parent, false);
+        } else if (templateType != null && templateType.toLowerCase().equals("image")) {
+            bindDefaultEvents = false;
+            convertView = layoutinflater.inflate(R.layout.image_item, parent, false);
+            listViewHolder.image = (NetworkImageView) convertView.findViewById(R.id.imageNetwork);
+            convertView.setTag(listViewHolder);
+
+            try {
+                ImageLoader mImageLoader = VolleySingleton.getInstance(context).getImageLoader();
+                JSONObject payloadObject =attachmentJSON.optJSONObject("payload");
+                JSONObject imageObject =payloadObject.optJSONObject("images");
+                String imageUrl =imageObject.optString("url");
+                listViewHolder.image.setImageUrl(imageUrl, mImageLoader);
+            } catch (Exception e) {
+            }
         }
+
+        else if (templateType != null && templateType.toLowerCase().equals("video")) {
+            bindDefaultEvents = false;
+            convertView = layoutinflater.inflate(R.layout.video_item, parent, false);
+            listViewHolder.videoView = (VideoView) convertView.findViewById(R.id.videoView);
+            convertView.setTag(listViewHolder);
+
+            try {
+                ImageLoader mImageLoader = VolleySingleton.getInstance(context).getImageLoader();
+                JSONObject payloadObject =attachmentJSON.optJSONObject("payload");
+                JSONObject imageObject =payloadObject.optJSONObject("images");
+                String imageUrl =imageObject.optString("url");
+                MediaController mediaController = new MediaController(context);
+                mediaController.setAnchorView(listViewHolder.image);
+
+                listViewHolder.videoView.setMediaController(mediaController);
+                listViewHolder.videoView.setVideoURI(Uri.parse("http://file2.video9.in/english/movie/2014/x-men-_days_of_future_past/X-Men-%20Days%20of%20Future%20Past%20Trailer%20-%20[Webmusic.IN].3gp"));
+
+                listViewHolder.videoView.start();
+            } catch (Exception e) {
+            }
+        }
+
 
         else  {
             convertView = layoutinflater.inflate(R.layout.chat_message_left, parent, false);
@@ -221,6 +291,7 @@ public class AdapterChatList extends BaseAdapter {
                 listViewHolder.textdate.setVisibility(View.GONE);
             }
             listViewHolder.textMessage.setText(listStorage.get(position).getMessage());
+           // convertView.setTag(listViewHolder);
         }
         return convertView;
 
@@ -262,6 +333,8 @@ public class AdapterChatList extends BaseAdapter {
         Button btnNo;
         Button payBill;
         ListView listOptions;
+        NetworkImageView image;
+        VideoView videoView;
         TwoWayView topMenueGrid;
         GridView cardList;
         TwoWayView cardList_New;
@@ -269,21 +342,22 @@ public class AdapterChatList extends BaseAdapter {
         TextView cardName, cardDescription;
         LinearLayout msgContainer;
     }
-
     private ViewHolder bindGridvents(ViewHolder viewHolder, JSONObject tempJSON, int position) {
         JSONArray jsonArray = new JSONArray();
         JSONArray buttons = new JSONArray();
+        cardListArry.clear();
         try {
             jsonArray = tempJSON.getJSONArray("list");
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 String cardName = jsonObject.getString("title");
                 String cardImage = jsonObject.getString("image");
+                String cardImageUrl = jsonObject.getString("url");
                 String description = jsonObject.getString("description");
-                if(jsonObject.has("buttons")) {
+                if (jsonObject.has("buttons")) {
                     buttons = jsonObject.getJSONArray("buttons");
                 }
-                cardList = new Card(cardName, cardImage, description,buttons);
+                cardList = new Card(cardName, cardImage,cardImageUrl,description, buttons);
                 cardListArry.add(cardList);
             }
         } catch (Exception e) {
@@ -384,6 +458,8 @@ public class AdapterChatList extends BaseAdapter {
         return viewHolder;
     }
 
+
+
     JSONObject btnPayloadYes1;
     JSONObject btnPayloadNO1;
     ChatActivity chat;
@@ -428,7 +504,7 @@ public class AdapterChatList extends BaseAdapter {
                     } catch (Exception e) {
                     }
                     ViewGroup.LayoutParams layoutParams = listViewHolder.listOptions.getLayoutParams();
-                    layoutParams.height = ChagebuttonsArray.length() * 230; //this is in pixels
+                   layoutParams.height = ChagebuttonsArray.length() * 230; //this is in pixels
                     listViewHolder.listOptions.setLayoutParams(layoutParams);
                     confirmationAdapter = new ConfirmationAdapter(context, confirmationList);
                     listViewHolder.listOptions.setAdapter(confirmationAdapter);
@@ -442,34 +518,40 @@ public class AdapterChatList extends BaseAdapter {
                 try {
                     for (int i = 0; i < ChagebuttonsArray.length(); i++) {
                         payloadTemplate = (JSONObject) ChagebuttonsArray.get(i);
-                        String title = payloadTemplate.getString("title");
-                        JSONObject payload = payloadTemplate.getJSONObject("payload");
-                        String type="";
-                        String url="";
-                        if(payloadTemplate.has("type")) {
-                            type= payloadTemplate.getString("type");
+                        String title = payloadTemplate.optString("title");
+                        //JSONObject payload = payloadTemplate.optJSONObject("payload");
+                        String type = "";
+                        String url = "";
+                        if (payloadTemplate.has("type")) {
+                            type = payloadTemplate.optString("type");
                         }
-                        if(payloadTemplate.has("url")) {
-                            url= payloadTemplate.getString("url");
+                        if (payloadTemplate.has("url")) {
+                            url = payloadTemplate.optString("url");
                         }
-                        if(payloadTemplate.has("mobile_url")) {
-                            url= payloadTemplate.getString("mobile_url");
+                        if (payloadTemplate.has("mobile_url")) {
+                            url = payloadTemplate.optString("mobile_url");
                         }
 //                        String type, String title, String message, JSONObject payload, String url
-                        buttons = new ButtonTemplate(type,title,"", payload,url);
+                        buttons = new ButtonTemplate(type, title, "", payloadTemplate, url);
                         buttonList.add(buttons);
+
+
+
                     }
 
                 } catch (Exception e) {
                 }
-                ViewGroup.LayoutParams layoutParams = listViewHolder.cardList.getLayoutParams();
-                layoutParams.height = ChagebuttonsArray.length() *155; //this is in pixels
-                listViewHolder.cardList.setLayoutParams(layoutParams);
+
+
                 buttonTemplateAdapter = new ButtonTemplateAdapter(context, buttonList);
                 listViewHolder.cardList.setAdapter(buttonTemplateAdapter);
                 buttonTemplateAdapter.notifyDataSetChanged();
 
-
+                if (ChagebuttonsArray.length() > 1) {
+                    ViewGroup.LayoutParams layoutParams = listViewHolder.cardList.getLayoutParams();
+                    layoutParams.height = getItemHeightofListView(listViewHolder.cardList,ChagebuttonsArray.length()); //this is in pixels
+                    listViewHolder.cardList.setLayoutParams(layoutParams);
+                }
             }
 
         } catch (Exception e) {
@@ -505,4 +587,17 @@ public class AdapterChatList extends BaseAdapter {
     }
 
 
+
+    // To calculate the total height of all items in ListView call with items = adapter.getCount()
+    public static int getItemHeightofListView(GridView listView, int items) {
+        ListAdapter adapter = listView.getAdapter();
+
+        int grossElementHeight = 0;
+        for (int i = 0; i < items; i++) {
+            View childView = adapter.getView(i, null, listView);
+            childView.measure(UNBOUNDED, UNBOUNDED);
+            grossElementHeight += childView.getMeasuredHeight();
+        }
+        return grossElementHeight;
+    }
 }

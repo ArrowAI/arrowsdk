@@ -23,7 +23,9 @@ import com.arrowai.chat.Activity.ChatActivity;
 import com.arrowai.chat.Activity.LoginActivity;
 import com.arrowai.chat.Activity.SplashActivity;
 import com.arrowai.chat.Activity.User;
+import com.arrowai.chat.SharedPrefManager;
 import com.arrowai.chat.util.AppController;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,6 +44,12 @@ import org.json.JSONObject;
  */
 public class ArrowAi {
     public ArrowAi() {
+
+    }
+
+    public ArrowAi(boolean value) {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(value);
+
     }
 
     String bot;
@@ -66,6 +74,12 @@ public class ArrowAi {
         setupAppId(ctx);
         String url = "https://firedev.arrowai.com/users/add";
         JSONObject deviceInfo = new JSONObject();
+        String token = SharedPrefManager.getInstance(ctx).getDeviceToken();
+        /*try {
+            jsonObject.put("FCM_Token",token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
         deviceInfo = getUserId(ctx);
         JSONObject map = new JSONObject();
         try {
@@ -73,6 +87,7 @@ public class ArrowAi {
             map.put("data", jsonObject);
             map.put("uniqId", uniqueId);
             map.put("deviceInfo", deviceInfo);
+            //map.put("FCM_Token", token);
 
         } catch (JSONException e) {
         }
@@ -132,48 +147,71 @@ public class ArrowAi {
         }
     }
 
-    public void logIn(String uniqueId, JSONObject jsonObject, final android.content.Context ctx) {
-        setupAppId(ctx);
-        String url = "https://firedev.arrowai.com/users/add";
-        JSONObject deviceInfo = new JSONObject();
-        deviceInfo = getUserId(ctx);
-        JSONObject map = new JSONObject();
-        try {
-            map.put("applicationId", appId);
-            map.put("uniqId", uniqueId);
-            map.put("data", jsonObject);
-            map.put("deviceInfo", deviceInfo);
+    public void logIn(String uniqueId, JSONObject jsonObject, final android.content.Context ctx, final String ConverationId) {
+        SharedPreferences prefs = ctx.getSharedPreferences("ChatPrefs", 0);
+        if (prefs.getString("userId", null) == "" || prefs.getString("userId", null) == null) {
 
+            setupAppId(ctx);
+            String url = "https://firedev.arrowai.com/users/add";
+            JSONObject deviceInfo = new JSONObject();
+            final String token = SharedPrefManager.getInstance(ctx).getDeviceToken();
+        /*try {
+            jsonObject.put("FCM_Token", token);
         } catch (JSONException e) {
-        }
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                int loginStatus = 0;
-                try {
-                    if (response.has("code")) {
-                        loginStatus = response.getInt("code");
-                        if (loginStatus == 0) {
-                            userId = response.getString("userId");
-                            saveSharedPref(ctx, userId, userId);
-                            Intent myIntent = new Intent(ctx, ChatActivity.class);
-                            ctx.startActivity(myIntent);
-                        } else {
+            e.printStackTrace();
+        }*/
+            deviceInfo = getUserId(ctx);
+            JSONObject map = new JSONObject();
+            try {
+                map.put("applicationId", appId);
+                map.put("uniqId", uniqueId);
+                map.put("data", jsonObject);
+                map.put("deviceInfo", deviceInfo);
+                // map.put("FCM_Token", token);
 
+            } catch (JSONException e) {
+            }
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, map, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    int loginStatus = 0;
+                    try {
+                        if (response.has("code")) {
+                            loginStatus = response.getInt("code");
+                            if (loginStatus == 0) {
+                                userId = response.getString("userId");
+
+                                database = FirebaseDatabase.getInstance();
+                                database.setPersistenceEnabled(true);
+                                myRef = database.getReference("appUser/" + appId + "/" + userId + "/deviceInfo/FCM_Token");
+                                myRef.setValue(token);
+
+                                saveSharedPref(ctx, userId, userId);
+
+                                    Intent myIntent = new Intent(ctx, ChatActivity.class);
+                                    myIntent.putExtra("ConversationId",ConverationId);
+                                    ctx.startActivity(myIntent);
+
+                            } else {
+
+                            }
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        RequestQueue queue = Volley.newRequestQueue(ctx);
-        queue.add(jsonObjReq);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+            RequestQueue queue = Volley.newRequestQueue(ctx);
+            queue.add(jsonObjReq);
+        } else {
+            Intent myIntent = new Intent(ctx, ChatActivity.class);
+            ctx.startActivity(myIntent);
+        }
     }
 
     public void logOut(final android.content.Context ctx, String applicationId) {
@@ -222,12 +260,12 @@ public class ArrowAi {
 
     }
 
-    public void initializeArrowAi(final android.content.Context ctx,final String applicationId) {
+    public void initializeArrowAi(final android.content.Context ctx, final String applicationId, final String botId) {
         ArrowAi appConfiguration = new ArrowAi();
         getSharedPref(ctx);
         if (bot != null) {
         } else {
-            String url = "http://testarrowbotcreator.herokuapp.com/api/application.php";
+            String url = "http://barclays.arrowai.com/api/application.php";
             JSONObject map = new JSONObject();
             try {
                 map.put("appId", applicationId);
@@ -243,9 +281,9 @@ public class ArrowAi {
                         }
                         if (response.has("data")) {
                             JSONObject jsonObj = response.getJSONObject("data");
-                            String appName="";
+                            String appName = "";
                             bots = jsonObj.getJSONArray("bots");
-                            appName=jsonObj.getString("name");
+                            appName = jsonObj.getString("name");
                             if (jsonObj.has("sideMenu")) {
                                 String sMenu = jsonObj.getString("sideMenu");
                                 if (sMenu != "null") {
@@ -257,6 +295,7 @@ public class ArrowAi {
                             SharedPreferences.Editor editor = prefs.edit();
                             editor.putString("appId", applicationId);
                             editor.putString("appName", appName);
+                            editor.putString("botId", botId);
                             editor.commit();
                         }
 
@@ -286,6 +325,7 @@ public class ArrowAi {
         TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(android.content.Context.TELEPHONY_SERVICE);
         WifiManager wm = (WifiManager) ctx.getSystemService(android.content.Context.WIFI_SERVICE);
         String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        String token = SharedPrefManager.getInstance(ctx).getDeviceToken();
         JSONObject deviceData = new JSONObject();
         try {
             deviceData.put("IP", ip);
@@ -312,6 +352,7 @@ public class ArrowAi {
             deviceData.put("TYPE", Build.TYPE);
             deviceData.put("UNKNOWN", Build.UNKNOWN);
             deviceData.put("USER", Build.USER);
+            deviceData.put("FCM_Token", token);
         } catch (JSONException e) {
             e.printStackTrace();
         }

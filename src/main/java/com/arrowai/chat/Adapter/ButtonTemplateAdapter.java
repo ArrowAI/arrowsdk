@@ -1,6 +1,10 @@
 package com.arrowai.chat.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,8 +62,8 @@ public class ButtonTemplateAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             listViewHolder = new ViewHolder();
-            convertView = layoutinflater.inflate(R.layout.button_list, parent, false);
-            listViewHolder.button = (Button) convertView.findViewById(R.id.button);
+            convertView = layoutinflater.inflate(R.layout.button_layout, parent, false);
+            listViewHolder.button = (TextView) convertView.findViewById(R.id.btnText);
             convertView.setTag(listViewHolder);
         } else {
             listViewHolder = (ViewHolder) convertView.getTag();
@@ -68,7 +72,29 @@ public class ButtonTemplateAdapter extends BaseAdapter {
         listViewHolder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ChatActivity) context).sendMessage(listStorage.get(position).getTitle(), true, listStorage.get(position).getPayload(),false,listStorage.get(position).getType(),listStorage.get(position).getUrl());
+                if (listStorage.get(position).getPayload().optString("type").equals("postback")) {
+                    ((ChatActivity) context).sendMessage(listStorage.get(position).getTitle(), true, listStorage.get(position).getPayload().optJSONObject("payload"),false,listStorage.get(position).getType(),listStorage.get(position).getUrl());
+
+                }
+                else if (listStorage.get(position).getPayload().optString("type").equals("openscreen")) {
+
+                    SharedPreferences prefs = context.getSharedPreferences("ChatPrefs", 0);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("OpenScreen", "transaction");
+                    editor.commit();
+                    ((ChatActivity) context).onBackPressed();
+                    //((ChatActivity) context).sendMessage(listStorage.get(position).getTitle(), true, listStorage.get(position).getPayload().optJSONObject("payload"),false,listStorage.get(position).getType(),listStorage.get(position).getUrl());
+
+                }
+
+                else {
+
+                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(listStorage.get(position).getUrl()));
+                    context.startActivity(myIntent);
+                    Log.d("onclick", "url " + listStorage.get(position).getUrl());
+                }
+
+               // ((ChatActivity) context).sendMessage(listStorage.get(position).getTitle(), true, listStorage.get(position).getPayload().optJSONObject("payload"),false,listStorage.get(position).getType(),listStorage.get(position).getUrl());
             }
         });
         return convertView;

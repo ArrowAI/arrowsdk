@@ -16,6 +16,7 @@ import com.arrowai.chat.Activity.Chat;
 import com.arrowai.chat.Activity.ChatActivity;
 import com.arrowai.chat.Model.ButtonTemplate;
 import com.arrowai.chat.Model.Card;
+import com.arrowai.chat.Model.CardButtonItem;
 import com.arrowai.chat.Model.Confirmation;
 import com.arrowai.chat.Model.Crausal;
 import com.arrowai.chat.Model.TransactionHistory;
@@ -54,6 +55,10 @@ public class CarausalAdapter extends ArrayAdapter<Crausal> {
     TransactionHistory transactionList;
     private List<Chat> listStorage;
     private Context context;
+    ArrayList<CardButtonItem> itemList ;
+
+
+    CardButtonItem cardBtnItem;
     private CardListAdapter cardListAdapter;
     private ConfirmationAdapter confirmationAdapter;
     private ArrayList<Confirmation> confirmationList;
