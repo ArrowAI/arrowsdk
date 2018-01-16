@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="14dp">
+    android:paddingTop="@dimen/pad_10dp"
+    android:paddingBottom="@dimen/pad_10dp"
+    android:paddingRight="@dimen/pad_5dp"
+    android:paddingLeft="@dimen/pad_5dp">
 
     <RelativeLayout
         android:id="@+id/card"

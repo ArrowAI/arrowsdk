@@ -330,6 +330,7 @@ public class ChatActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 return false;
             }
         });
+        findViewById(R.id.sendButton).setVisibility(View.GONE);
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -9,6 +9,7 @@
     android:id="@+id/textHeading"
     android:paddingLeft="15dp"
     android:layout_marginBottom="20dp"
+    android:visibility="gone"
     android:text="The list of cards matching your need are as follows"
     android:layout_height="wrap_content" />
 

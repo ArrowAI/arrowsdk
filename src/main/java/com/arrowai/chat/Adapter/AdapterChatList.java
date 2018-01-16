@@ -352,7 +352,8 @@ public class AdapterChatList extends BaseAdapter {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 String cardName = jsonObject.getString("title");
                 String cardImage = jsonObject.getString("image");
-                String cardImageUrl = jsonObject.getString("url");
+                String cardImageUrl = jsonObject.getString("image");
+                //String cardImageUrl = jsonObject.getString("url");
                 String description = jsonObject.getString("description");
                 if (jsonObject.has("buttons")) {
                     buttons = jsonObject.getJSONArray("buttons");
